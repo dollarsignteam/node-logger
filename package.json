@@ -25,6 +25,7 @@
     "prebuild": "tsc --build --clean",
     "build": "tsc && tsc-alias",
     "test": "jest --forceExit --detectOpenHandles",
+    "test:watch": "npm run test -- --coverage --watchAll",
     "format": "prettier src/**/*.ts --write",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/ --fix",
     "prepare": "husky install",
