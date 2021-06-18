@@ -1,3 +1,6 @@
+import { stringify } from 'json-cycle';
+import { attempt, isError } from 'lodash';
+
 /**
  * @method isEmpty
  * @param {String | Number | Object} value
@@ -17,3 +20,14 @@ export const isEmpty = (value: string | number | object): boolean => {
     return false;
   }
 };
+
+export const toJSON = (data: unknown) => {
+  const str = stringify(data);
+  const json = parseJSON(str);
+  return json;
+};
+
+export function parseJSON<T>(data: unknown): T {
+  const result = attempt<T>(JSON.parse.bind(null, data));
+  return !isError(result) ? result : null;
+}

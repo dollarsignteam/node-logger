@@ -1,3 +1,7 @@
-import { logger, stream } from '@utils/logger';
+import { logger } from '@utils/logger';
 
-export class Logger {}
+export class Logger {
+  constructor() {
+    logger.debug('debug message');
+  }
+}
