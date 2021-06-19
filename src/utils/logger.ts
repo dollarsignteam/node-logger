@@ -1,39 +1,43 @@
-import winston from 'winston';
-import ecsFormat from '@elastic/ecs-winston-format';
-import { stringify } from 'json-cycle';
+import { isEmpty, toJSONString } from '@dollarsign/utils';
+import { TransformableInfo } from 'logform';
+import { createLogger, format, transports } from 'winston';
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: ecsFormat(),
-  transports: [new winston.transports.Console()],
+const { combine, timestamp, printf, label, splat, ms, align } = format;
+
+function templateFactory(info: TransformableInfo): string {
+  const { timestamp, label, level, message, ms, ...meta } = info;
+  const template: string[] = [];
+  template.push(timestamp);
+  template.push('[node] -');
+  template.push(`${label}`);
+  template.push(`${level}`);
+  template.push(message);
+  if (!isEmpty(meta)) {
+    template.push(`- \`${toJSONString(meta)}\``);
+  }
+  template.push(ms);
+  return template.join(' ');
+}
+
+const logTemplate = printf(templateFactory);
+
+const logTimestamp = timestamp({
+  format: 'YYYY-MM-DD HH:mm:ss',
 });
 
-// Define log format
-// const logFormat = winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`);
+const logLabel = label({ label: '[Logger][Service]' });
 
-// const logger = winston.createLogger({
-//   format: winston.format.combine(
-//     winston.format.timestamp({
-//       format: 'YYYY-MM-DD HH:mm:ss',
-//     }),
-//     logFormat,
-//   ),
-//   transports: [],
-// });
-
-// logger.add(
-//   new winston.transports.Console({
-//     format: winston.format.combine(winston.format.splat(), winston.format.colorize()),
-//   }),
-// );
-
-const a = { foo: 'bar', bar: null };
-a.bar = a;
+const logger = createLogger({
+  level: 'silly',
+  format: combine(splat(), ms(), align(), logTimestamp, logLabel, logTemplate),
+  transports: [new transports.Console()],
+});
 
 logger.debug('debug message');
-logger.info('info message');
-logger.warn('warn message', { foo: 'bar' });
-logger.error('error message: ', { data: JSON.parse(stringify({ foo: a })) });
-// logger.error(JSON.stringify(JSON.parse(stringify({ foo: a }))));
+logger.info('test message %s', 'my string');
+logger.warn('test message %d', 123);
+logger.verbose('test message %s, %s', 'first', 'second', { number: 123 });
+logger.log('error', 'hello', { message: 'world' });
+logger.info('hello', { message: 'world' });
 
 export { logger };

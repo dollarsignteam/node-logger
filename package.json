@@ -38,8 +38,7 @@
     ]
   },
   "dependencies": {
-    "@dollarsign/utils": "^1.0.0",
-    "@elastic/ecs-winston-format": "^1.1.0",
+    "@dollarsign/utils": "^1.1.1",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -53,6 +52,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^6.0.0",
     "jest": "^27.0.4",
     "lint-staged": "^11.0.0",

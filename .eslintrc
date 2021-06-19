@@ -10,9 +10,13 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": [
+    "simple-import-sort"
+  ],
   "rules": {
     "@typescript-eslint/no-parameter-properties": 1,
     "@typescript-eslint/explicit-function-return-type": 1,
-    "@typescript-eslint/explicit-module-boundary-types": 1
+    "@typescript-eslint/explicit-module-boundary-types": 1,
+    "simple-import-sort/imports": 1
   }
 }
