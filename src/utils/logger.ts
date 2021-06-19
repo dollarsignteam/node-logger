@@ -1,9 +1,19 @@
 import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { TransformableInfo } from 'logform';
-import { createLogger, format, transports } from 'winston';
+import { createLogger as createWinstonLogger, format, Logger, transports } from 'winston';
 
 const { combine, timestamp, printf, label, splat, ms, align } = format;
 
+const logTimestamp = timestamp({
+  format: 'YYYY-MM-DD HH:mm:ss.SSS',
+});
+const logTemplate = printf(templateFactory);
+const logLabel = label({ label: '[Logger][Service]' });
+
+/**
+ * @param {TransformableInfo} info logs metadata
+ * @returns {string} logs template `string`
+ */
 function templateFactory(info: TransformableInfo): string {
   const { timestamp, label, level, message, ms, ...meta } = info;
   const template: string[] = [];
@@ -19,15 +29,22 @@ function templateFactory(info: TransformableInfo): string {
   return template.join(' ');
 }
 
-const logTemplate = printf(templateFactory);
+interface LoggerOptions {
+  level: string;
+  context: string;
+  platform: string;
+}
 
-const logTimestamp = timestamp({
-  format: 'YYYY-MM-DD HH:mm:ss',
-});
+/**
+ * @param {LoggerOptions} options logger options
+ * @returns {Logger} winston logger
+ */
+function createLogger(options: LoggerOptions): Logger {
+  options;
+  return null;
+}
 
-const logLabel = label({ label: '[Logger][Service]' });
-
-const logger = createLogger({
+const logger = createWinstonLogger({
   level: 'silly',
   format: combine(splat(), ms(), align(), logTimestamp, logLabel, logTemplate),
   transports: [new transports.Console()],
@@ -38,6 +55,6 @@ logger.info('test message %s', 'my string');
 logger.warn('test message %d', 123);
 logger.verbose('test message %s, %s', 'first', 'second', { number: 123 });
 logger.log('error', 'hello', { message: 'world' });
-logger.info('hello', { message: 'world' });
+logger.error(new Error('INTERNAL ERROR'));
 
-export { logger };
+export { logger, createLogger };
