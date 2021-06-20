@@ -1,8 +1,9 @@
 import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { TransformableInfo } from 'logform';
+import { Logger as TSLogger } from 'tslog';
 import { createLogger as createWinstonLogger, format, Logger, transports } from 'winston';
 
-const { combine, timestamp, printf, label, splat, ms, align } = format;
+const { combine, timestamp, printf, label, splat, ms } = format;
 
 const logTimestamp = timestamp({
   format: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -18,12 +19,14 @@ function templateFactory(info: TransformableInfo): string {
   const { timestamp, label, level, message, ms, ...meta } = info;
   const template: string[] = [];
   template.push(timestamp);
-  template.push('[node] -');
+  template.push('[node]');
+  template.push('-');
   template.push(`${label}`);
-  template.push(`${level}`);
-  template.push(message);
+  template.push(`${level}:`);
+  template.push(toJSONString(message));
   if (!isEmpty(meta)) {
-    template.push(`- \`${toJSONString(meta)}\``);
+    template.push('-');
+    template.push(`\`${toJSONString(meta)}\``);
   }
   template.push(ms);
   return template.join(' ');
@@ -31,6 +34,7 @@ function templateFactory(info: TransformableInfo): string {
 
 interface LoggerOptions {
   level: string;
+  name: string;
   context: string;
   platform: string;
 }
@@ -46,15 +50,13 @@ function createLogger(options: LoggerOptions): Logger {
 
 const logger = createWinstonLogger({
   level: 'silly',
-  format: combine(splat(), ms(), align(), logTimestamp, logLabel, logTemplate),
-  transports: [new transports.Console()],
+  transports: [
+    new transports.Console({
+      format: combine(splat(), ms(), logTimestamp, logLabel, logTemplate),
+    }),
+  ],
 });
 
-logger.debug('debug message');
-logger.info('test message %s', 'my string');
-logger.warn('test message %d', 123);
-logger.verbose('test message %s, %s', 'first', 'second', { number: 123 });
-logger.log('error', 'hello', { message: 'world' });
-logger.error(new Error('INTERNAL ERROR'));
+const tsLogger: TSLogger = new TSLogger();
 
-export { logger, createLogger };
+export { logger, tsLogger, createLogger };
