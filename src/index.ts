@@ -14,11 +14,11 @@ export class Logger {
   }
 
   /**
-   * Logs a debug message.
-   * @param args  - Multiple log attributes that should be logged out.
+   * @param {?} args multiple log attributes that should be logged out
    */
-  public debug(...args: unknown[]): winston.LeveledLogMethod {
-    return this.logger.debug.apply(this.logger, ...this.formatArguments(args));
+  public debug(...args: unknown[]): void {
+    const formatArgs = this.formatArguments(args);
+    this.logger.log.apply(this.logger, ['debug', ...formatArgs]);
   }
 
   /**
@@ -31,9 +31,8 @@ export class Logger {
     if (stackInfo) {
       const { relativePath, lineNumber, columnNumber, method } = stackInfo;
       const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${method})`;
-      console.log(args);
-      if (typeof args[-1] === 'string') {
-        args[-1] = callSite + ' ' + args[0];
+      if (typeof args[0] === 'string') {
+        args[0] = `${callSite} ${args[0]}`;
       } else {
         args.unshift(callSite);
       }

@@ -12,6 +12,7 @@ class Demo {
   run(): void {
     tsLogger.debug({ foo: 'bar', label: 'xxx' });
     dlsLogger.debug({ foo: 'bar', label: 'xxx' });
+    dlsLogger.debug();
   }
 }
 
