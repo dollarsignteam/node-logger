@@ -2,6 +2,7 @@ import { createLogger } from '@utils/logger';
 import path, { join } from 'path';
 import winston from 'winston';
 
+import { LoggerOptions, LogLevels } from '@/constants';
 import { StackInfo } from '@/interfaces';
 
 const PROJECT_ROOT = join(__dirname, '..');
@@ -9,16 +10,34 @@ const PROJECT_ROOT = join(__dirname, '..');
 export class Logger {
   private logger: winston.Logger;
 
-  constructor() {
-    this.logger = createLogger();
+  constructor(options?: LoggerOptions) {
+    this.logger = createLogger(options);
   }
 
   /**
    * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
    */
-  public debug(...args: unknown[]): void {
+  public log(level: keyof typeof LogLevels, ...args: unknown[]): winston.Logger {
+    return this.callLogger(level, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public debug(...args: unknown[]): winston.Logger {
+    return this.callLogger('debug', ...args);
+  }
+
+  /**
+   * @param {string} level log level `string`
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  private callLogger(level: string, ...args: unknown[]): winston.Logger {
     const formatArgs = this.formatArguments(args);
-    this.logger.log.apply(this.logger, ['debug', ...formatArgs]);
+    return this.logger.log.apply(this.logger, [level, ...formatArgs]);
   }
 
   /**

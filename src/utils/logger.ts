@@ -2,6 +2,8 @@ import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { TransformableInfo } from 'logform';
 import { createLogger as createWinstonLogger, format, Logger, transports } from 'winston';
 
+import { LoggerOptions } from '@/constants';
+
 const { combine, timestamp, printf, label, splat, ms } = format;
 
 const logTemplate = printf(templateFactory);
@@ -14,24 +16,18 @@ const logTimestamp = timestamp({
  * @returns {string} logs template `string`
  */
 function templateFactory(info: TransformableInfo): string {
-  const { timestamp, label, level, message, ms, ...meta } = info;
+  const { timestamp, label, level, message, ms, ...args } = info;
   const template: string[] = [];
   template.push(timestamp);
   template.push(label);
   template.push(`${level}:`);
   template.push(toJSONString(message));
-  if (!isEmpty(meta)) {
+  if (!isEmpty(args)) {
     template.push('-');
-    template.push(`\`${toJSONString(meta)}\``);
+    template.push(`\`${toJSONString(args)}\``);
   }
   template.push(ms);
   return template.join(' ');
-}
-
-export interface LoggerOptions {
-  level?: string;
-  name?: string;
-  platform?: string;
 }
 
 /**
