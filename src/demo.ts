@@ -1,19 +1,19 @@
 import { Logger } from 'tslog';
 
-import { debug } from './index';
-import { createLogger } from './utils/logger';
+import { Logger as DLSLogger } from './index';
 
-const logger = createLogger();
 const tsLogger = new Logger();
+const dlsLogger = new DLSLogger();
 
-logger.info('DEMO information!');
 tsLogger.info('DEMO information!');
+dlsLogger.debug('DEMO information!');
 
-function demo(): void {
-  logger.debug({ foo: 'bar' });
-  tsLogger.debug({ foo: 'bar' });
+class Demo {
+  run(): void {
+    tsLogger.debug({ foo: 'bar', label: 'xxx' });
+    dlsLogger.debug({ foo: 'bar', label: 'xxx' });
+  }
 }
 
-debug('AAAAAAAAAAAAAAAAAAAAAAAAAA', { foo: 'bar' });
-
-demo();
+const d = new Demo();
+d.run();

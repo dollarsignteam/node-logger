@@ -6,7 +6,7 @@ const { combine, timestamp, printf, label, splat, ms } = format;
 
 const logTemplate = printf(templateFactory);
 const logTimestamp = timestamp({
-  format: 'YYYY-MM-DD HH:mm:ss.SSS',
+  format: 'YYYY-MM-DD HH:mm:ss.SSS Z',
 });
 
 /**
@@ -17,9 +17,7 @@ function templateFactory(info: TransformableInfo): string {
   const { timestamp, label, level, message, ms, ...meta } = info;
   const template: string[] = [];
   template.push(timestamp);
-  template.push('[node]');
-  template.push('-');
-  template.push(`${label}`);
+  template.push(label);
   template.push(`${level}:`);
   template.push(toJSONString(message));
   if (!isEmpty(meta)) {
@@ -33,7 +31,7 @@ function templateFactory(info: TransformableInfo): string {
 export interface LoggerOptions {
   level?: string;
   name?: string;
-  context?: string;
+  platform?: string;
 }
 
 /**
@@ -41,10 +39,10 @@ export interface LoggerOptions {
  * @returns {Logger} winston logger
  */
 export function createLogger(options?: LoggerOptions): Logger {
-  const level = options?.level ?? 'debug';
+  const level = options?.level ?? 'silly';
   const name = options?.name ?? 'Logger';
-  const context = options?.context ?? 'inspect';
-  const logLabel = label({ label: `[${name}][${context}]` });
+  const platform = options?.platform ?? 'node';
+  const logLabel = label({ label: `[${platform}] - [${name}]` });
   return createWinstonLogger({
     level,
     format: combine(splat(), ms(), logTimestamp, logLabel, logTemplate),
