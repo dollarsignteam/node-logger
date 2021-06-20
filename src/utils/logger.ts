@@ -1,15 +1,13 @@
 import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { TransformableInfo } from 'logform';
-import { Logger as TSLogger } from 'tslog';
 import { createLogger as createWinstonLogger, format, Logger, transports } from 'winston';
 
 const { combine, timestamp, printf, label, splat, ms } = format;
 
+const logTemplate = printf(templateFactory);
 const logTimestamp = timestamp({
   format: 'YYYY-MM-DD HH:mm:ss.SSS',
 });
-const logTemplate = printf(templateFactory);
-const logLabel = label({ label: '[Logger][Service]' });
 
 /**
  * @param {TransformableInfo} info logs metadata
@@ -32,31 +30,24 @@ function templateFactory(info: TransformableInfo): string {
   return template.join(' ');
 }
 
-interface LoggerOptions {
-  level: string;
-  name: string;
-  context: string;
-  platform: string;
+export interface LoggerOptions {
+  level?: string;
+  name?: string;
+  context?: string;
 }
 
 /**
  * @param {LoggerOptions} options logger options
  * @returns {Logger} winston logger
  */
-function createLogger(options: LoggerOptions): Logger {
-  options;
-  return null;
+export function createLogger(options?: LoggerOptions): Logger {
+  const level = options?.level ?? 'debug';
+  const name = options?.name ?? 'Logger';
+  const context = options?.context ?? 'inspect';
+  const logLabel = label({ label: `[${name}][${context}]` });
+  return createWinstonLogger({
+    level,
+    format: combine(splat(), ms(), logTimestamp, logLabel, logTemplate),
+    transports: [new transports.Console()],
+  });
 }
-
-const logger = createWinstonLogger({
-  level: 'silly',
-  transports: [
-    new transports.Console({
-      format: combine(splat(), ms(), logTimestamp, logLabel, logTemplate),
-    }),
-  ],
-});
-
-const tsLogger: TSLogger = new TSLogger();
-
-export { logger, tsLogger, createLogger };
