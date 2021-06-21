@@ -15,7 +15,7 @@ const logTimestamp = timestamp({
  * @param {TransformableInfo} info logs metadata
  * @returns {string} logs template `string`
  */
-function templateFactory(info: TransformableInfo): string {
+export function templateFactory(info: TransformableInfo): string {
   const { timestamp, label, level, message, ms, ...args } = info;
   const template: string[] = [];
   template.push(timestamp);
@@ -27,7 +27,7 @@ function templateFactory(info: TransformableInfo): string {
     template.push(`\`${toJSONString(args)}\``);
   }
   template.push(ms);
-  return template.join(' ');
+  return template.join(' ').trim();
 }
 
 /**
