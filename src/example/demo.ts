@@ -1,16 +1,18 @@
 import { Logger } from '@/index';
 
 class MyClass {
-  private readonly _logger: Logger = new Logger({
+  private readonly logger = new Logger({
+    level: 'silly',
     name: 'DEMO',
+    platform: 'node',
   });
 
   public constructor() {
-    this._logger.silly('I am a silly log.');
+    this.logger.silly('I am a silly log.');
   }
 
   public myMethod(): void {
-    const jsonObj: Record<string, unknown> = {
+    const jsonObj = {
       name: 'John Doe',
       age: 30,
       cars: {
@@ -18,45 +20,31 @@ class MyClass {
         car2: 'BMW',
         car3: 'Tesla',
       },
-      obj: undefined,
     };
 
-    jsonObj.obj = jsonObj;
-
-    this._logger.debug('I am a debug log.');
-    this._logger.info('I am an info log.');
-    this._logger.warn('I am a warn log with a json object:', jsonObj);
-    this._logger.error('I am an error log.');
-    try {
-      let log: Logger;
-      log.debug();
-    } catch (err) {
-      this._logger.error(err);
-    }
+    this.logger.debug('I am a debug log.');
+    this.logger.verbose('I am a debug log.');
+    this.logger.http('I am a debug log.');
+    this.logger.info('I am an info log with car: %j', jsonObj.cars);
+    this.logger.log('I am same info log with age: %d', jsonObj.age);
+    this.logger.warn('I am a warn log with a json object:', jsonObj);
+    this.logger.error('I am an error log.');
   }
 }
 
 const myClass: MyClass = new MyClass();
 myClass.myMethod();
 
-const log: Logger = new Logger({
-  name: 'Test',
+const logger = new Logger({
+  name: 'TEST',
 });
 
-log.silly('I am a silly log.');
-log.debug('I am a debug log.');
-log.log('I am a log(info) log.');
-log.http('I am a http log.');
-log.info('I am an info log.');
-log.warn('I am a warn log with a json object:', { foo: 'bar' });
-log.error('I am an error log.');
-
-/*
+/**
  * Circular example
- * */
+ */
 function Foo(): void {
   this.abc = 'Hello';
   this.circular = this;
 }
 const foo = new Foo();
-log.debug(foo);
+logger.debug(foo);
