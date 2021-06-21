@@ -2,7 +2,7 @@ import { createWinstonLogger } from '@utils/winston';
 import path, { join } from 'path';
 import winston from 'winston';
 
-import { LoggerOptions, LogLevel, LogLevels } from '@/constants';
+import { LoggerOptions, LogLevels } from '@/constants';
 import { StackInfo } from '@/interfaces';
 
 const PROJECT_ROOT = join(__dirname, '..');
@@ -18,8 +18,8 @@ export class Logger {
    * @param {?} args multiple log attributes that should be logged out
    * @returns {winston.Logger} winston logger instance
    */
-  public log(level: LogLevel, ...args: unknown[]): winston.Logger {
-    return this.callLogger(level, ...args);
+  public log(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.info, ...args);
   }
 
   /**

@@ -70,13 +70,6 @@ describe('Logger', () => {
       jest.spyOn(logger, 'callLogger').mockReset();
     });
 
-    describe('log', () => {
-      it('should call `callLogger`', () => {
-        logger.log('debug', { foo: 'bar' });
-        expect(logger.callLogger).toHaveBeenCalledWith('debug', { foo: 'bar' });
-      });
-    });
-
     describe('silly', () => {
       it('should call `callLogger`', () => {
         logger.silly('silly message');
@@ -88,6 +81,13 @@ describe('Logger', () => {
       it('should call `callLogger`', () => {
         logger.debug({ debug: 'true' });
         expect(logger.callLogger).toHaveBeenCalledWith('debug', { debug: 'true' });
+      });
+    });
+
+    describe('log', () => {
+      it('should call `callLogger`', () => {
+        logger.log('log message');
+        expect(logger.callLogger).toHaveBeenCalledWith('info', 'log message');
       });
     });
 
