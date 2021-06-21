@@ -27,6 +27,7 @@
     "test": "jest --forceExit --detectOpenHandles",
     "test:cov": "npm run test -- --verbose --coverage",
     "test:watch": "npm run test -- --coverage --watchAll",
+    "demo": "ts-node -r tsconfig-paths/register src/example/demo.ts",
     "format": "prettier src/**/*.ts --write",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/ --fix",
     "prepare": "husky install",

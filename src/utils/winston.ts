@@ -1,6 +1,6 @@
 import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { TransformableInfo } from 'logform';
-import { createLogger as createWinstonLogger, format, Logger, transports } from 'winston';
+import { createLogger, format, Logger, transports } from 'winston';
 
 import { LoggerOptions } from '@/constants';
 
@@ -34,12 +34,12 @@ function templateFactory(info: TransformableInfo): string {
  * @param {LoggerOptions} options logger options
  * @returns {Logger} winston logger
  */
-export function createLogger(options?: LoggerOptions): Logger {
+export function createWinstonLogger(options?: LoggerOptions): Logger {
   const level = options?.level ?? 'silly';
   const name = options?.name ?? 'Logger';
   const platform = options?.platform ?? 'node';
   const logLabel = label({ label: `[${platform}] - [${name}]` });
-  return createWinstonLogger({
+  return createLogger({
     level,
     format: combine(splat(), ms(), logTimestamp, logLabel, logTemplate),
     transports: [new transports.Console()],
