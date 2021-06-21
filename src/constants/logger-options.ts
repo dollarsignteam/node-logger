@@ -1,7 +1,7 @@
-import { LogLevels } from './log-levels';
+import { LogLevel } from './log-levels';
 
 export interface LoggerOptions {
-  level?: keyof typeof LogLevels;
+  level?: LogLevel;
   name?: string;
   platform?: string;
 }

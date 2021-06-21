@@ -7,3 +7,5 @@ export enum LogLevels {
   debug = 'debug',
   silly = 'silly',
 }
+
+export type LogLevel = keyof typeof LogLevels;
