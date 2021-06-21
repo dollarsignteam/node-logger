@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 
 import { createWinstonLogger } from '@utils/winston';
-import { basename, join, relative, sep } from 'path';
+import { basename, sep } from 'path';
 import winston from 'winston';
 
 import { LoggerOptions, LogLevels } from '@/constants';
@@ -9,8 +9,7 @@ import { StackInfo } from '@/interfaces';
 
 export class Logger {
   private logger: winston.Logger;
-  private static cwdArray: string[] = process.cwd().split(sep);
-  private static projectRoot: string = join(__dirname, '..');
+  public static cwdArray: string[] = process.cwd().split(sep);
 
   constructor(options?: LoggerOptions) {
     this.logger = createWinstonLogger(options);
@@ -123,25 +122,26 @@ export class Logger {
       return {
         method: result[1],
         absolutePath: result[2],
-        relativePath: relative(Logger.projectRoot, result[2]),
-        // relativePath: Logger.cleanUpFilePath(result[2]),
+        relativePath: Logger.getRelativePath(result[2]),
         lineNumber: result[3],
         columnNumber: result[4],
         fileName: basename(result[2]),
-        stack: stackList.join('\n'),
       };
     }
   }
 
-  public static cleanUpFilePath(fileName: string | null): string | null {
-    return fileName == null
-      ? fileName
-      : Object.entries(fileName.split(sep))
-          .reduce(
-            (cleanFileName: string, fileNamePart) =>
-              fileNamePart[1] !== this.cwdArray[fileNamePart[0]] ? (cleanFileName += sep + fileNamePart[1]) : cleanFileName,
-            '',
-          )
-          .substring(1);
+  /**
+   * @param {string} filePath absolute file path
+   * @returns {string | null} relative path `string` or `null`
+   */
+  public static getRelativePath(filePath: string): string | null {
+    if (!filePath) {
+      return null;
+    }
+    const subPathList = Object.entries(filePath.split(sep));
+    const relativePath = subPathList.reduce((currentPath: string, subPath) => {
+      return subPath[1] !== this.cwdArray[subPath[0]] ? `${currentPath}${sep}${subPath[1]}` : currentPath;
+    }, '');
+    return relativePath.substring(1);
   }
 }

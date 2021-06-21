@@ -5,5 +5,4 @@ export interface StackInfo {
   lineNumber: string;
   columnNumber: string;
   fileName: string;
-  stack: string;
 }

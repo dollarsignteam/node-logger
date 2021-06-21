@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 import { LoggerOptions } from '../constants';
 import { StackInfo } from '../interfaces';
 import { Logger } from '../logger';
@@ -10,7 +12,25 @@ describe('Logger', () => {
     expect(logger).toBeDefined();
   });
 
+  describe('getRelativePath', () => {
+    it('should return null when input is null', () => {
+      const result = Logger.getRelativePath(null);
+      expect(result).toBeNull();
+    });
+
+    it('should return return relative path string', () => {
+      const expected = join('src', 'index.ts');
+      const filePath = join(process.cwd(), expected);
+      const result = Logger.getRelativePath(filePath);
+      expect(result).toBe(expected);
+    });
+  });
+
   describe('getStackInfo', () => {
+    beforeEach(() => {
+      jest.spyOn(Logger, 'getRelativePath').mockReset();
+    });
+
     it('should return stack info', () => {
       const info = logger.getStackInfo(-1);
       expect(info).toHaveProperty('method');
@@ -59,7 +79,7 @@ describe('Logger', () => {
 
   describe('callLogger', () => {
     it('should call `updateArguments`', () => {
-      const spyUpdateArguments = jest.spyOn(logger, 'updateArguments');
+      const spyUpdateArguments = jest.spyOn(logger, 'updateArguments').mockReturnValueOnce(['']);
       logger.callLogger('debug', 'message');
       expect(spyUpdateArguments).toHaveBeenCalledWith(['message']);
     });
