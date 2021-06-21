@@ -2,7 +2,7 @@ import { createWinstonLogger } from '@utils/winston';
 import path, { join } from 'path';
 import winston from 'winston';
 
-import { LoggerOptions, LogLevel } from '@/constants';
+import { LoggerOptions, LogLevel, LogLevels } from '@/constants';
 import { StackInfo } from '@/interfaces';
 
 const PROJECT_ROOT = join(__dirname, '..');
@@ -26,8 +26,56 @@ export class Logger {
    * @param {?} args multiple log attributes that should be logged out
    * @returns {winston.Logger} winston logger instance
    */
+  public silly(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.silly, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
   public debug(...args: unknown[]): winston.Logger {
-    return this.callLogger('debug', ...args);
+    return this.callLogger(LogLevels.debug, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public verbose(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.verbose, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public http(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.http, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public info(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.info, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public warn(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.warn, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
+  public error(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.error, ...args);
   }
 
   /**
@@ -35,8 +83,8 @@ export class Logger {
    * @param {?} args multiple log attributes that should be logged out
    * @returns {winston.Logger} winston logger instance
    */
-  private callLogger(level: string, ...args: unknown[]): winston.Logger {
-    const formatArgs = this.formatArguments(args);
+  public callLogger(level: string, ...args: unknown[]): winston.Logger {
+    const formatArgs = this.updateArguments(args);
     return this.logger.log.apply(this.logger, [level, ...formatArgs]);
   }
 
@@ -44,7 +92,7 @@ export class Logger {
    * @param {unknown} args log arguments
    * @returns {unknown} args with callSite info
    */
-  private formatArguments(args: unknown[]): unknown[] {
+  public updateArguments(args: unknown[]): unknown[] {
     args = Array.prototype.slice.call(args);
     const stackInfo = this.getStackInfo(2);
     if (stackInfo) {
@@ -63,7 +111,7 @@ export class Logger {
    * @param {number} index stack index
    * @returns {StackInfo} call stack info
    */
-  private getStackInfo(index: number): StackInfo {
+  public getStackInfo(index: number): StackInfo {
     const stackRegA = /at\s+(.*)\s+\((.*):(\d*):(\d*)\)/gi;
     const stackRegB = /at\s+()(.*):(\d*):(\d*)/gi;
     const stackList = new Error().stack.split('\n').slice(3);
