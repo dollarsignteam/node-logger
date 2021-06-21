@@ -1,14 +1,16 @@
+import 'source-map-support/register';
+
 import { createWinstonLogger } from '@utils/winston';
-import path, { join } from 'path';
+import { basename, join, relative, sep } from 'path';
 import winston from 'winston';
 
 import { LoggerOptions, LogLevels } from '@/constants';
 import { StackInfo } from '@/interfaces';
 
-const PROJECT_ROOT = join(__dirname, '..');
-
 export class Logger {
   private logger: winston.Logger;
+  private static cwdArray: string[] = process.cwd().split(sep);
+  private static projectRoot: string = join(__dirname, '..');
 
   constructor(options?: LoggerOptions) {
     this.logger = createWinstonLogger(options);
@@ -121,12 +123,25 @@ export class Logger {
       return {
         method: result[1],
         absolutePath: result[2],
-        relativePath: path.relative(PROJECT_ROOT, result[2]),
+        relativePath: relative(Logger.projectRoot, result[2]),
+        // relativePath: Logger.cleanUpFilePath(result[2]),
         lineNumber: result[3],
         columnNumber: result[4],
-        fileName: path.basename(result[2]),
+        fileName: basename(result[2]),
         stack: stackList.join('\n'),
       };
     }
+  }
+
+  public static cleanUpFilePath(fileName: string | null): string | null {
+    return fileName == null
+      ? fileName
+      : Object.entries(fileName.split(sep))
+          .reduce(
+            (cleanFileName: string, fileNamePart) =>
+              fileNamePart[1] !== this.cwdArray[fileNamePart[0]] ? (cleanFileName += sep + fileNamePart[1]) : cleanFileName,
+            '',
+          )
+          .substring(1);
   }
 }
