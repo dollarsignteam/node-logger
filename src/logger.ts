@@ -1,11 +1,11 @@
 import 'source-map-support/register';
 
-import { createWinstonLogger } from '@utils/winston';
 import { basename, sep } from 'path';
 import winston from 'winston';
 
-import { LoggerOptions, LogLevels } from '@/constants';
-import { StackInfo } from '@/interfaces';
+import { LogLevels } from '@/constants';
+import { LoggerOptions, StackInfo } from '@/interfaces';
+import { createWinstonLogger } from '@/utils';
 
 export class Logger {
   private logger: winston.Logger;

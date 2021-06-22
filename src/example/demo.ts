@@ -50,4 +50,5 @@ logger.debug(foo);
 /**
  * Multiple args
  */
-logger.verbose('message', 'args1', 'args2', 'args3', { demo: true });
+const data = { label: 'Demo label', level: 'Demo level', timestamp: 'Tue Jun 22 17:27:01 +07 2021' };
+logger.verbose('message', 'args1', 'args2', 'args3', data);
