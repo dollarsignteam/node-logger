@@ -75,7 +75,7 @@ describe('Logger', () => {
       jest.spyOn(logger, 'getStackInfo').mockReturnValueOnce(info);
       const args = [{ foo: 'bar' }];
       const result = logger.updateArguments(args);
-      expect(result).toEqual(['(logger.spec.ts:1:2 <anonymous>)', { foo: 'bar' }]);
+      expect(result).toEqual(['(logger.spec.ts:1:2 Object.<anonymous>)', { foo: 'bar' }]);
     });
   });
 

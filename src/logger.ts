@@ -101,7 +101,7 @@ export class Logger {
     const stackInfo = this.getStackInfo(2);
     if (stackInfo) {
       const { relativePath, lineNumber, columnNumber, method } = stackInfo;
-      const callerName = method || '<anonymous>';
+      const callerName = method || 'Object.<anonymous>';
       const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${callerName})`;
       if (typeof args[0] === 'string') {
         args[0] = `${callSite} ${args[0]}`;
