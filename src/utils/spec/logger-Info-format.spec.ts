@@ -1,14 +1,12 @@
-import { TransformableInfo } from 'logform';
-
-import { Info, Level } from '../../constants';
-import { LoggerOptions } from '../../interfaces';
-import { loggerInfoFactory } from '../logger-Info-factory';
+import { INFO, LEVEL } from '../../constants';
+import { ChangeableInfo, LoggerOptions } from '../../interfaces';
+import { loggerInfoFactory } from '../logger-Info-format';
 
 describe('loggerInfoFactory', () => {
-  const info: TransformableInfo = {
+  const info: ChangeableInfo = {
     level: 'debug',
     message: 'message',
-    [Level]: 'debug',
+    [LEVEL]: 'debug',
   };
 
   it('should return default logger information', () => {
@@ -16,8 +14,8 @@ describe('loggerInfoFactory', () => {
     expect(result).toEqual({
       level: 'debug',
       message: 'message',
-      [Level]: 'debug',
-      [Info]: {
+      [LEVEL]: 'debug',
+      [INFO]: {
         level: 'debug',
         name: 'Logger',
         platform: 'node',
@@ -36,8 +34,8 @@ describe('loggerInfoFactory', () => {
     expect(result).toEqual({
       level: 'debug',
       message: 'message',
-      [Level]: 'debug',
-      [Info]: {
+      [LEVEL]: 'debug',
+      [INFO]: {
         level: 'debug',
         name: 'TEST',
         platform: 'logger',

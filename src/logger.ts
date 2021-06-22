@@ -5,7 +5,7 @@ import winston from 'winston';
 
 import { LogLevels } from '@/constants';
 import { LoggerOptions, StackInfo } from '@/interfaces';
-import { createWinstonLogger } from '@/utils';
+import { createWinstonLogger } from '@/utils/winston';
 
 export class Logger {
   private logger: winston.Logger;
@@ -97,11 +97,12 @@ export class Logger {
    * @returns {unknown} args with callSite info
    */
   public updateArguments(args: unknown[]): unknown[] {
+    return args;
     args = Array.prototype.slice.call(args);
     const stackInfo = this.getStackInfo(2);
     if (stackInfo) {
-      const { relativePath, lineNumber, columnNumber, method } = stackInfo;
-      const callerName = method || 'Object.<anonymous>';
+      const { relativePath, lineNumber, columnNumber, functionName } = stackInfo;
+      const callerName = functionName || 'Object.<anonymous>';
       const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${callerName})`;
       if (typeof args[0] === 'string') {
         args[0] = `${callSite} ${args[0]}`;
@@ -124,7 +125,7 @@ export class Logger {
     const result = stackRegA.exec(stack) || stackRegB.exec(stack);
     if (result && result.length === 5) {
       return {
-        method: result[1],
+        functionName: result[1],
         absolutePath: result[2],
         relativePath: Logger.getRelativePath(result[2]),
         lineNumber: result[3],

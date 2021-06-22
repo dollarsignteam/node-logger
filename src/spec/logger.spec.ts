@@ -53,7 +53,7 @@ describe.skip('Logger', () => {
 
     it('should return args with callSite data string', () => {
       const info = {
-        method: 'Mock.test',
+        functionName: 'Mock.test',
         relativePath: 'logger.spec.ts',
         lineNumber: '1',
         columnNumber: '2',
@@ -66,7 +66,7 @@ describe.skip('Logger', () => {
 
     it('should return args with callSite data object', () => {
       const info = {
-        method: '',
+        functionName: '',
         relativePath: 'logger.spec.ts',
         lineNumber: '1',
         columnNumber: '2',

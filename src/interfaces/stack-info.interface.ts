@@ -2,7 +2,7 @@ export interface StackInfo {
   absolutePath: string;
   columnNumber: string;
   fileName: string;
+  functionName: string;
   lineNumber: string;
-  method: string;
   relativePath: string;
 }

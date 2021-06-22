@@ -2,14 +2,14 @@ import { isEmpty, toJSONString } from '@dollarsign/utils';
 import { format, TransformableInfo } from 'logform';
 import { createLogger, Logger, transports } from 'winston';
 
-import { Info } from '@/constants';
+import { INFO } from '@/constants';
 import { LoggerInfo, LoggerOptions } from '@/interfaces';
-import { loggerInfoFactory } from '@/utils/logger-Info-factory';
+import { loggerInfoFormat } from '@/utils/logger-Info-format';
+import { splatFormat } from '@/utils/splat-format';
 
 const { combine, printf, splat, simple, json } = format;
 
 const templateFormat = printf(templateFactory);
-const loggerInfoFormatWrap = format(loggerInfoFactory);
 
 /**
  * @param {TransformableInfo} info logs metadata
@@ -18,7 +18,7 @@ const loggerInfoFormatWrap = format(loggerInfoFactory);
 export function templateFactory(info: TransformableInfo): string {
   const { message, ...args } = info;
   const symbol = info as unknown;
-  const loggerInfo: LoggerInfo = symbol[Info];
+  const loggerInfo: LoggerInfo = symbol[INFO];
   console.log(info);
   console.info(loggerInfo);
   const template: string[] = [];
@@ -38,13 +38,14 @@ export function templateFactory(info: TransformableInfo): string {
  * @returns {Logger} winston logger
  */
 export function createWinstonLogger(opts?: LoggerOptions): Logger {
-  const loggerInfoFormat = loggerInfoFormatWrap(opts);
+  // const loggerInfoFormat = loggerInfoFormatWrap(opts);
   return createLogger({
     level: opts?.level || 'silly',
-    // format: combine(splat(), loggerInfoFormat),
+    format: combine(splatFormat(), loggerInfoFormat(opts)),
     transports: [
       new transports.Console({
-        format: combine(simple()),
+        format: combine(splat(), simple()),
+        // format: combine(simple()),
       }),
     ],
   });
