@@ -35,9 +35,7 @@ class MyClass {
 const myClass: MyClass = new MyClass();
 myClass.myMethod();
 
-const logger = new Logger({
-  name: 'TEST',
-});
+const logger = new Logger('TEST');
 
 /**
  * Circular example
@@ -48,3 +46,8 @@ function Foo(): void {
 }
 const foo = new Foo();
 logger.debug(foo);
+
+/**
+ * Multiple args
+ */
+logger.verbose('message', 'args1', 'args2', 'args3', { demo: true });

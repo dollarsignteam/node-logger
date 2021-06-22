@@ -9,6 +9,8 @@ describe('Logger', () => {
   const logger = new Logger(options);
 
   it('should be defined', () => {
+    const log = new Logger('TEST');
+    expect(log).toBeDefined();
     expect(logger).toBeDefined();
   });
 
@@ -65,7 +67,7 @@ describe('Logger', () => {
 
     it('should return args with callSite data object', () => {
       const info = {
-        method: 'Mock.test',
+        method: '',
         relativePath: 'logger.spec.ts',
         lineNumber: '1',
         columnNumber: '2',
@@ -73,7 +75,7 @@ describe('Logger', () => {
       jest.spyOn(logger, 'getStackInfo').mockReturnValueOnce(info);
       const args = [{ foo: 'bar' }];
       const result = logger.updateArguments(args);
-      expect(result).toEqual(['(logger.spec.ts:1:2 Mock.test)', { foo: 'bar' }]);
+      expect(result).toEqual(['(logger.spec.ts:1:2 <anonymous>)', { foo: 'bar' }]);
     });
   });
 

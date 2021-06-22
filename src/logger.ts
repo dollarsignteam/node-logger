@@ -11,7 +11,10 @@ export class Logger {
   private logger: winston.Logger;
   public static cwdArray: string[] = process.cwd().split(sep);
 
-  constructor(options?: LoggerOptions) {
+  constructor(options?: LoggerOptions | string) {
+    if (typeof options == 'string') {
+      options = { name: options };
+    }
     this.logger = createWinstonLogger(options);
   }
 
@@ -98,7 +101,8 @@ export class Logger {
     const stackInfo = this.getStackInfo(2);
     if (stackInfo) {
       const { relativePath, lineNumber, columnNumber, method } = stackInfo;
-      const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${method})`;
+      const callerName = method || '<anonymous>';
+      const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${callerName})`;
       if (typeof args[0] === 'string') {
         args[0] = `${callSite} ${args[0]}`;
       } else {
