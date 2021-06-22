@@ -3,7 +3,7 @@ import { join } from 'path';
 import { LoggerOptions, StackInfo } from '../interfaces';
 import { Logger } from '../logger';
 
-describe.skip('Logger', () => {
+describe('Logger', () => {
   const options: LoggerOptions = { name: 'TEST', level: 'info' };
   const logger = new Logger(options);
 
@@ -34,7 +34,7 @@ describe.skip('Logger', () => {
 
     it('should return stack info', () => {
       const info = logger.getStackInfo(-1);
-      expect(info).toHaveProperty('method');
+      expect(info).toHaveProperty('functionName');
     });
 
     it('should return undefined', () => {

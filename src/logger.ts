@@ -5,7 +5,7 @@ import winston from 'winston';
 
 import { LogLevels } from '@/constants';
 import { LoggerOptions, StackInfo } from '@/interfaces';
-import { createWinstonLogger } from '@/utils/winston';
+import { createLogger } from '@/utils/create-logger';
 
 export class Logger {
   private logger: winston.Logger;
@@ -15,7 +15,7 @@ export class Logger {
     if (typeof options == 'string') {
       options = { name: options };
     }
-    this.logger = createWinstonLogger(options);
+    this.logger = createLogger(options);
   }
 
   /**
@@ -97,7 +97,6 @@ export class Logger {
    * @returns {unknown} args with callSite info
    */
   public updateArguments(args: unknown[]): unknown[] {
-    return args;
     args = Array.prototype.slice.call(args);
     const stackInfo = this.getStackInfo(2);
     if (stackInfo) {
