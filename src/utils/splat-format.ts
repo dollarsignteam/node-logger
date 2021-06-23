@@ -41,12 +41,12 @@ export class Splatter {
    */
   transform(info: ChangeableInfo): ChangeableInfo {
     const msg = info.message;
-    const splat = info[SPLAT];
-    if (!splat || !splat.length) {
+    const splat = info[SPLAT] || [];
+    if (!splat.length) {
       return info;
     }
     const tokens = msg && msg.match && msg.match(formatRegExp);
-    if (!tokens && (splat || splat.length)) {
+    if (!tokens) {
       const metas = splat.length > 1 ? splat.splice(0) : splat;
       if (this.displayData && metas.length) {
         Object.assign(info, { data: metas });
@@ -54,10 +54,7 @@ export class Splatter {
       info[DATA] = metas;
       return info;
     }
-    if (tokens) {
-      return this.splat(info, tokens);
-    }
-    return info;
+    return this.splat(info, tokens);
   }
 }
 
