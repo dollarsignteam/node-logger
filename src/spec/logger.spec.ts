@@ -50,6 +50,15 @@ describe('Logger', () => {
     });
   });
 
+  describe('callLogger', () => {
+    it('should call `getCallerInfo`', () => {
+      const spyGetCallerInfo = jest.spyOn(logger, 'getCallerInfo').mockReset();
+      const result = logger.callLogger('debug', 'message');
+      expect(result).toBeDefined();
+      expect(spyGetCallerInfo).toHaveBeenCalledWith(1);
+    });
+  });
+
   describe('logger method', () => {
     beforeEach(() => {
       jest.spyOn(logger, 'callLogger').mockReset();
