@@ -15,7 +15,7 @@ const { combine } = format;
 export function createLogger(opts?: LoggerOptions): Logger {
   return createWinstonLogger({
     level: opts?.level || 'silly',
-    format: combine(splatFormat(), loggerInfoFormat(opts), simpleFormat),
+    format: combine(loggerInfoFormat(opts), splatFormat(), simpleFormat),
     transports: [new transports.Console()],
   });
 }

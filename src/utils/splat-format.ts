@@ -20,7 +20,7 @@ class Splatter {
    */
   splat(info: ChangeableInfo, tokens: string[]): ChangeableInfo {
     const msg = info.message;
-    const splat = info[SPLAT] || info.splat || [];
+    const splat = info[SPLAT] || [];
     const percents = msg.match(escapedPercent);
     const escapes = (percents && percents.length) || 0;
     const expectedSplat = tokens.length - escapes;
@@ -41,7 +41,7 @@ class Splatter {
    */
   transform(info: ChangeableInfo): ChangeableInfo {
     const msg = info.message;
-    const splat = info[SPLAT] || info.splat;
+    const splat = info[SPLAT];
     if (!splat || !splat.length) {
       return info;
     }

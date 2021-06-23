@@ -1,7 +1,7 @@
 import { Format, format } from 'logform';
 
-import { INFO, LEVEL } from '@/constants';
-import { ChangeableInfo, LoggerInfo, LoggerOptions } from '@/interfaces';
+import { CALLER, INFO, LEVEL, SPLAT } from '@/constants';
+import { CallerInfo, ChangeableInfo, LoggerInfo, LoggerOptions } from '@/interfaces';
 import { getTimestamp } from '@/utils/get-timestamp';
 
 /**
@@ -17,6 +17,13 @@ export function loggerInfoFactory(info: ChangeableInfo, opts: LoggerOptions): Ch
     timestamp: getTimestamp(opts?.timestampFormat),
   };
   info[INFO] = loggerInfo;
+  info[CALLER] = {} as CallerInfo;
+  const splat = info[SPLAT] || [];
+  const callerInfo = [...splat].pop() as ChangeableInfo;
+  if (callerInfo && callerInfo[CALLER]?.functionName) {
+    info[CALLER] = splat.pop()[CALLER];
+    info[SPLAT] = splat;
+  }
   return info;
 }
 

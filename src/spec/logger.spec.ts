@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { LoggerOptions, StackInfo } from '../interfaces';
+import { LoggerOptions } from '../interfaces';
 import { Logger } from '../logger';
 
 describe('Logger', () => {
@@ -27,62 +27,19 @@ describe('Logger', () => {
     });
   });
 
-  describe('getStackInfo', () => {
+  describe('getCallerInfo', () => {
     beforeEach(() => {
       jest.spyOn(Logger, 'getRelativePath').mockReset();
     });
 
     it('should return stack info', () => {
-      const info = logger.getStackInfo(-1);
+      const info = logger.getCallerInfo(-1);
       expect(info).toHaveProperty('functionName');
     });
 
     it('should return undefined', () => {
-      const info = logger.getStackInfo(1);
+      const info = logger.getCallerInfo(1);
       expect(info).toBeUndefined();
-    });
-  });
-
-  describe('updateArguments', () => {
-    it('should return args', () => {
-      jest.spyOn(logger, 'getStackInfo').mockReturnValueOnce(undefined);
-      const args = ['message'];
-      const result = logger.updateArguments(args);
-      expect(result).toEqual(args);
-    });
-
-    it('should return args with callSite data string', () => {
-      const info = {
-        functionName: 'Mock.test',
-        relativePath: 'logger.spec.ts',
-        lineNumber: '1',
-        columnNumber: '2',
-      } as StackInfo;
-      jest.spyOn(logger, 'getStackInfo').mockReturnValueOnce(info);
-      const args = ['message'];
-      const result = logger.updateArguments(args);
-      expect(result).toEqual(['(logger.spec.ts:1:2 Mock.test) message']);
-    });
-
-    it('should return args with callSite data object', () => {
-      const info = {
-        functionName: '',
-        relativePath: 'logger.spec.ts',
-        lineNumber: '1',
-        columnNumber: '2',
-      } as StackInfo;
-      jest.spyOn(logger, 'getStackInfo').mockReturnValueOnce(info);
-      const args = [{ foo: 'bar' }];
-      const result = logger.updateArguments(args);
-      expect(result).toEqual(['(logger.spec.ts:1:2 Object.<anonymous>)', { foo: 'bar' }]);
-    });
-  });
-
-  describe('callLogger', () => {
-    it('should call `updateArguments`', () => {
-      const spyUpdateArguments = jest.spyOn(logger, 'updateArguments').mockReturnValueOnce(['']);
-      logger.callLogger('debug', 'message');
-      expect(spyUpdateArguments).toHaveBeenCalledWith(['message']);
     });
   });
 

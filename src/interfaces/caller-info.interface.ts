@@ -1,4 +1,4 @@
-export interface StackInfo {
+export interface CallerInfo {
   absolutePath: string;
   columnNumber: string;
   fileName: string;

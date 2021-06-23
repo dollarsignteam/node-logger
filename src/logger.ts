@@ -3,8 +3,8 @@ import 'source-map-support/register';
 import { basename, sep } from 'path';
 import winston from 'winston';
 
-import { LogLevels } from '@/constants';
-import { LoggerOptions, StackInfo } from '@/interfaces';
+import { CALLER, LogLevels } from '@/constants';
+import { CallerInfo, LoggerOptions } from '@/interfaces';
 import { createLogger } from '@/utils/create-logger';
 
 export class Logger {
@@ -88,43 +88,26 @@ export class Logger {
    * @returns {winston.Logger} winston logger instance
    */
   public callLogger(level: string, ...args: unknown[]): winston.Logger {
-    const formatArgs = this.updateArguments(args);
-    return this.logger.log.apply(this.logger, [level, ...formatArgs]);
-  }
-
-  /**
-   * @param {unknown} args log arguments
-   * @returns {unknown} args with callSite info
-   */
-  public updateArguments(args: unknown[]): unknown[] {
-    args = Array.prototype.slice.call(args);
-    const stackInfo = this.getStackInfo(2);
-    if (stackInfo) {
-      const { relativePath, lineNumber, columnNumber, functionName } = stackInfo;
-      const callerName = functionName || 'Object.<anonymous>';
-      const callSite = `(${relativePath}:${lineNumber}:${columnNumber} ${callerName})`;
-      if (typeof args[0] === 'string') {
-        args[0] = `${callSite} ${args[0]}`;
-      } else {
-        args.unshift(callSite);
-      }
-    }
-    return args;
+    const callerInfo = this.getCallerInfo(1);
+    const caller = { [CALLER]: callerInfo };
+    return this.logger.log.apply(this.logger, [level, ...args, caller]);
   }
 
   /**
    * @param {number} index stack index
-   * @returns {StackInfo} call stack info
+   * @param {Error} error optional `Error`
+   * @returns {CallerInfo} caller info
    */
-  public getStackInfo(index: number): StackInfo {
+  public getCallerInfo(index: number, error?: Error): CallerInfo {
     const stackRegA = /at\s+(.*)\s+\((.*):(\d*):(\d*)\)/gi;
     const stackRegB = /at\s+()(.*):(\d*):(\d*)/gi;
-    const stackList = new Error().stack.split('\n').slice(3);
-    const stack = stackList[index] || stackList[0];
-    const result = stackRegA.exec(stack) || stackRegB.exec(stack);
+    const stack = error?.stack || new Error().stack;
+    const stackList = stack.split('\n').slice(3);
+    const message = stackList[index] || stackList[0];
+    const result = stackRegA.exec(message) || stackRegB.exec(message);
     if (result && result.length === 5) {
       return {
-        functionName: result[1],
+        functionName: result[1] || 'Object.<anonymous>',
         absolutePath: result[2],
         relativePath: Logger.getRelativePath(result[2]),
         lineNumber: result[3],
