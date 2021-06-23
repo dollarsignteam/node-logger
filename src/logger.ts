@@ -11,11 +11,11 @@ export class Logger {
   private logger: winston.Logger;
   public static cwdArray: string[] = process.cwd().split(sep);
 
-  constructor(options?: LoggerOptions | string) {
-    if (typeof options == 'string') {
-      options = { name: options };
+  constructor(opts?: LoggerOptions | string) {
+    if (typeof opts == 'string') {
+      opts = { name: opts };
     }
-    this.logger = createLogger(options);
+    this.logger = createLogger(opts);
   }
 
   /**

@@ -10,12 +10,12 @@ describe('winston', () => {
     });
 
     it('should return custom logger', () => {
-      const options: LoggerOptions = {
+      const opts: LoggerOptions = {
         level: 'warn',
         name: 'TEST',
         platform: 'node',
       };
-      const logger = createLogger(options);
+      const logger = createLogger(opts);
       expect(logger.level).toBe(LogLevels.warn);
     });
   });

@@ -6,7 +6,7 @@ import { ChangeableInfo, SplatterOptions } from '@/interfaces';
 const formatRegExp = /%[scdjifoO%]/g;
 const escapedPercent = /%%/g;
 
-class Splatter {
+export class Splatter {
   private displayData: boolean;
 
   constructor(opts?: SplatterOptions) {

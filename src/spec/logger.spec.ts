@@ -4,8 +4,8 @@ import { LoggerOptions } from '../interfaces';
 import { Logger } from '../logger';
 
 describe('Logger', () => {
-  const options: LoggerOptions = { name: 'TEST', level: 'info' };
-  const logger = new Logger(options);
+  const opts: LoggerOptions = { name: 'TEST', level: 'info' };
+  const logger = new Logger(opts);
 
   it('should be defined', () => {
     const log = new Logger('TEST');
