@@ -11,9 +11,9 @@ const { printf } = format;
  * @returns {string} logs message
  */
 export function simpleFactory(info: ChangeableInfo): string {
-  const { message } = info;
+  const { message, level } = info;
   const data = info[DATA];
-  const { timestamp, name, level, platform } = info[INFO];
+  const { timestamp, name, level: levelInfo, platform } = info[INFO];
   const template: string[] = [];
   template.push(timestamp);
   template.push(`[${platform}][${name}]`);
@@ -21,7 +21,7 @@ export function simpleFactory(info: ChangeableInfo): string {
     const { relativePath, lineNumber, columnNumber, functionName } = info[CALLER];
     template.push(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`);
   }
-  template.push(`${level}:`.toUpperCase());
+  template.push(`${level.replace(levelInfo, levelInfo.toUpperCase())}:`);
   template.push(toJSONString(message));
   if (data?.length) {
     template.push('-');
