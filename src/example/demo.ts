@@ -8,27 +8,27 @@ class MyClass {
   });
 
   public constructor() {
-    this.logger.silly('I am a silly log.');
+    this.logger.silly('I am a silly log');
   }
 
   public myMethod(): void {
     const data = {
-      name: 'John Doe',
-      age: 30,
+      name: 'Lupin',
+      age: 32,
       cars: {
-        car1: 'Audi',
+        car1: 'Tesla',
         car2: 'BMW',
-        car3: 'Tesla',
       },
     };
 
-    this.logger.debug('I am a debug log.');
-    this.logger.verbose('I am a debug log.');
-    this.logger.http({ foo: 'bar', http: true });
-    this.logger.info('I am an info log with car: %j', data.cars);
-    this.logger.log('I am same info log with age: %d', data.age);
-    this.logger.warn('I am a warn log with a json object:', data);
-    this.logger.error('Found %s at %s', 'error', new Date());
+    this.logger.debug('I am a debug log');
+    this.logger.verbose('I am a verbose log');
+    this.logger.http('I am a http log');
+    this.logger.info('I am an info log with name: %s and age: %d', data.name, data.age);
+    this.logger.log('I am an log log with cars: %s', data.cars);
+    this.logger.warn('Found %s at %s', 'error', new Date());
+    this.logger.error(new Error('Error passed as info'));
+    this.logger.error('Error', 'Important error: ', new Error('Error passed as meta'));
   }
 }
 
@@ -45,4 +45,5 @@ function Foo(): void {
   this.circular = this;
 }
 const foo = new Foo();
-logger.debug(foo);
+logger.info('Circular', foo);
+logger.debug(foo.circular);
