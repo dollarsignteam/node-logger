@@ -25,7 +25,11 @@ export function simpleFactory(info: ChangeableInfo): string {
   template.push(toJSONString(message));
   if (data?.length) {
     template.push('-');
-    template.push(`\`${toJSONString(data)}\``);
+    if (data.length == 1) {
+      template.push(`\`${toJSONString(data[0])}\``);
+    } else {
+      template.push(`\`${toJSONString(data)}\``);
+    }
   }
   return template.join(' ').trim();
 }
