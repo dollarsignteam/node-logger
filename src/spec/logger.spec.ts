@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { LoggerOptions } from '../interfaces';
+import { CallerInfo, LoggerOptions } from '../interfaces';
 import { Logger } from '../logger';
 
 describe('Logger', () => {
@@ -40,6 +40,13 @@ describe('Logger', () => {
     it('should return undefined', () => {
       const info = logger.getCallerInfo(1);
       expect(info).toBeUndefined();
+    });
+
+    it('should return `Object.<anonymous>` functionName', () => {
+      const error = new Error();
+      error.stack = `Error:\n\n\nat /Workspace/src/test.ts:1:2`;
+      const info: CallerInfo = logger.getCallerInfo(0, error);
+      expect(info.functionName).toBe('Object.<anonymous>');
     });
   });
 
