@@ -1,5 +1,6 @@
 import { toJSONString } from '@dollarsign/utils';
 import { format } from 'logform';
+import { types } from 'util';
 
 import { CALLER, DATA, INFO } from '@/constants';
 import { ChangeableInfo } from '@/interfaces';
@@ -16,8 +17,8 @@ export function simpleFactory(info: ChangeableInfo): string {
   const { timestamp, name, level: levelInfo, platform } = info[INFO];
   const template: string[] = [];
   template.push(timestamp);
-  template.push(`${level.replace(levelInfo, levelInfo.toUpperCase())}\t`);
-  template.push(`[${platform}][${name}]`);
+  const levelText = `${level.replace(levelInfo, levelInfo.toUpperCase())}\t`;
+  template.push(`${levelText}[${platform}][${name}]`);
   if (info[CALLER]?.functionName) {
     const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
     if (`${absolutePath}`.indexOf('node_modules') > -1) {
@@ -26,7 +27,11 @@ export function simpleFactory(info: ChangeableInfo): string {
       template.push(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`);
     }
   }
-  template.push(toJSONString(message));
+  if (types.isNativeError(message)) {
+    template.push(message);
+  } else {
+    template.push(toJSONString(message));
+  }
   if (data?.length) {
     template.push('-');
     if (data.length == 1) {

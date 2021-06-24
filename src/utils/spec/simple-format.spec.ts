@@ -22,11 +22,11 @@ describe('simpleFactory', () => {
     const info: ChangeableInfo = {
       level: LogLevels.debug,
       label: '[TEST]',
-      message: 'foo',
+      message: new Error('foo') as unknown as string,
       [INFO]: logInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] foo');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t[node][Logger] Error: foo');
   });
 
   it('should return message log with caller info and single data', () => {
@@ -39,7 +39,7 @@ describe('simpleFactory', () => {
       [CALLER]: callerInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] [src/test.ts:1:2 Mock.test] data - `foo`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t[node][Logger] [src/test.ts:1:2 Mock.test] data - `foo`');
   });
 
   it('should return message log with caller info and multiple data', () => {
@@ -54,6 +54,6 @@ describe('simpleFactory', () => {
       [CALLER]: caller,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] [Mock.test] data - `["list",[1,2,3]]`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t[node][Logger] [Mock.test] data - `["list",[1,2,3]]`');
   });
 });

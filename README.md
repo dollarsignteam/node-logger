@@ -75,17 +75,17 @@ logger.debug(foo.circular);
 output
 
 ```log
-2021-06-23T15:49:04.409Z [node][DEMO] [src/example/demo.ts:11:17 new MyClass] SILLY: I am a silly log
-2021-06-23T15:49:04.412Z [node][DEMO] [src/example/demo.ts:24:17 MyClass.myMethod] DEBUG: I am a debug log
-2021-06-23T15:49:04.413Z [node][DEMO] [src/example/demo.ts:25:17 MyClass.myMethod] VERBOSE: I am a verbose log
-2021-06-23T15:49:04.414Z [node][DEMO] [src/example/demo.ts:26:17 MyClass.myMethod] HTTP: I am a http log
-2021-06-23T15:49:04.415Z [node][DEMO] [src/example/demo.ts:27:17 MyClass.myMethod] INFO: I am an info log with name: Lupin and age: 32
-2021-06-23T15:49:04.416Z [node][DEMO] [src/example/demo.ts:28:17 MyClass.myMethod] INFO: I am an log log with cars: { car1: 'Tesla', car2: 'BMW' }
-2021-06-23T15:49:04.419Z [node][DEMO] [src/example/demo.ts:29:17 MyClass.myMethod] WARN: Found error at 2021-06-23T15:49:04.418Z
-2021-06-23T15:49:04.420Z [node][DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] ERROR: {}
-2021-06-23T15:49:04.421Z [node][DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] ERROR: Error - `["Important error: ",{}]`
-2021-06-23T15:49:04.422Z [node][TEST] [src/example/demo.ts:48:8 Object.<anonymous>] INFO: Circular - `{"abc":"Hello","circular":{"$ref":"$"}}`
-2021-06-23T15:49:04.423Z [node][TEST] [src/example/demo.ts:49:8 Object.<anonymous>] DEBUG: {"abc":"Hello","circular":{"$ref":"$"}}
+2021-06-24 14:55:52.198 +07:00 SILLY    [node][DEMO] [src/example/demo.ts:11:17 new MyClass] I am a silly log
+2021-06-24 14:55:52.203 +07:00 DEBUG    [node][DEMO] [src/example/demo.ts:24:17 MyClass.myMethod] I am a debug log
+2021-06-24 14:55:52.204 +07:00 VERBOSE  [node][DEMO] [src/example/demo.ts:25:17 MyClass.myMethod] I am a verbose log
+2021-06-24 14:55:52.204 +07:00 HTTP     [node][DEMO] [src/example/demo.ts:26:17 MyClass.myMethod] I am a http log
+2021-06-24 14:55:52.205 +07:00 INFO     [node][DEMO] [src/example/demo.ts:27:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32
+2021-06-24 14:55:52.206 +07:00 INFO     [node][DEMO] [src/example/demo.ts:28:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' }
+2021-06-24 14:55:52.209 +07:00 WARN     [node][DEMO] [src/example/demo.ts:29:17 MyClass.myMethod] Found error at 2021-06-24T07:55:52.209Z
+2021-06-24 14:55:52.210 +07:00 ERROR    [node][DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] Error: Error passed as info
+2021-06-24 14:55:52.210 +07:00 ERROR    [node][DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] Error - `["Important error: ",{}]`
+2021-06-24 14:55:52.212 +07:00 INFO     [node][TEST] [src/example/demo.ts:48:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":{"$ref":"$"}}`
+2021-06-24 14:55:52.212 +07:00 DEBUG    [node][TEST] [src/example/demo.ts:49:8 Object.<anonymous>] {"abc":"Hello","circular":{"$ref":"$"}}
 ```
 
 ## Contributing
