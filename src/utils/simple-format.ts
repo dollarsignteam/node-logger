@@ -2,7 +2,7 @@ import { toJSONString } from '@dollarsign/utils';
 import { format } from 'logform';
 import { types } from 'util';
 
-import { CALLER, DATA, INFO } from '@/constants';
+import { CALLER, DATA, EmojiLogLevels, INFO } from '@/constants';
 import { ChangeableInfo } from '@/interfaces';
 
 const { printf } = format;
@@ -12,13 +12,13 @@ const { printf } = format;
  * @returns {string} logs message
  */
 export function simpleFactory(info: ChangeableInfo): string {
-  const { message, level } = info;
+  const { message } = info;
   const data = info[DATA];
-  const { timestamp, name, level: levelInfo, platform } = info[INFO];
+  const { timestamp, name, level, platform } = info[INFO];
   const template: string[] = [];
   template.push(timestamp);
-  const levelText = `${level.replace(levelInfo, levelInfo.toUpperCase())}\t`;
-  template.push(`${levelText}[${platform}][${name}]`);
+  const emojiLogLevel = EmojiLogLevels[level];
+  template.push(`[${platform}] ${emojiLogLevel} [${name}]`);
   if (info[CALLER]?.functionName) {
     const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
     if (`${absolutePath}`.indexOf('node_modules') > -1) {

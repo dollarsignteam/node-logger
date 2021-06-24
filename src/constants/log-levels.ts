@@ -8,4 +8,14 @@ export enum LogLevels {
   warn = 'warn',
 }
 
+export enum EmojiLogLevels {
+  debug = '🟪 DEBUG  ',
+  error = '🟥 ERROR  ',
+  http = '🟫 HTTP   ',
+  info = '🟩 INFO   ',
+  silly = '⬜️ SILLY  ',
+  verbose = '🟦 VERBOSE',
+  warn = '🟧 WARN   ',
+}
+
 export type LogLevel = keyof typeof LogLevels;
