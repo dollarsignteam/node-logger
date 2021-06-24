@@ -16,12 +16,16 @@ export function simpleFactory(info: ChangeableInfo): string {
   const { timestamp, name, level: levelInfo, platform } = info[INFO];
   const template: string[] = [];
   template.push(timestamp);
+  template.push(`${level.replace(levelInfo, levelInfo.toUpperCase())}\t`);
   template.push(`[${platform}][${name}]`);
   if (info[CALLER]?.functionName) {
-    const { relativePath, lineNumber, columnNumber, functionName } = info[CALLER];
-    template.push(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`);
+    const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
+    if (`${absolutePath}`.indexOf('node_modules') > -1) {
+      template.push(`[${functionName}]`);
+    } else {
+      template.push(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`);
+    }
   }
-  template.push(`${level.replace(levelInfo, levelInfo.toUpperCase())}:`);
   template.push(toJSONString(message));
   if (data?.length) {
     template.push('-');

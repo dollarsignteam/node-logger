@@ -26,7 +26,7 @@ describe('simpleFactory', () => {
       [INFO]: logInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node][Logger] DEBUG: foo');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] foo');
   });
 
   it('should return message log with caller info and single data', () => {
@@ -39,19 +39,21 @@ describe('simpleFactory', () => {
       [CALLER]: callerInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node][Logger] [src/test.ts:1:2 Mock.test] DEBUG: data - `foo`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] [src/test.ts:1:2 Mock.test] data - `foo`');
   });
 
   it('should return message log with caller info and multiple data', () => {
+    const caller = { ...callerInfo };
+    caller.absolutePath = `@/node_modules/${caller.absolutePath}`;
     const info: ChangeableInfo = {
       level: LogLevels.debug,
       label: '[TEST]',
       message: 'data',
       [DATA]: ['list', [1, 2, 3]],
       [INFO]: logInfo,
-      [CALLER]: callerInfo,
+      [CALLER]: caller,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node][Logger] [src/test.ts:1:2 Mock.test] DEBUG: data - `["list",[1,2,3]]`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z DEBUG\t [node][Logger] [Mock.test] data - `["list",[1,2,3]]`');
   });
 });
