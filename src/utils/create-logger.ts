@@ -18,7 +18,7 @@ export function createLogger(opts?: LoggerOptions): Logger {
   const logLevel = opts?.level || 'silly';
   if (opts?.colorize ?? process.env.LOGGER_COLORIZE !== 'false') {
     opts = Object.assign({}, opts, { colorize: true });
-    logFormat.push(colorize({ all: true }));
+    logFormat.push(colorize());
   }
   winston.addColors(customColors);
   return createWinstonLogger({

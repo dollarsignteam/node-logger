@@ -27,7 +27,7 @@ describe('simpleFactory', () => {
       [INFO]: logInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 debug   [Logger] Error: foo');
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] Error: foo');
   });
 
   it('should return message log with caller info and single data', () => {
@@ -40,7 +40,7 @@ describe('simpleFactory', () => {
       [CALLER]: callerInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 debug   [Logger] [src/test.ts:1:2 Mock.test] data - `foo`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] [src/test.ts:1:2 Mock.test] data - `foo`');
   });
 
   it('should return message log with caller info and multiple data', () => {
@@ -55,6 +55,6 @@ describe('simpleFactory', () => {
       [CALLER]: caller,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 debug   [Logger] [Mock.test] data - `["list",[1,2,3]]`');
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] [Mock.test] data - `["list",[1,2,3]]`');
   });
 });

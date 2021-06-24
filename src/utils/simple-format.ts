@@ -19,7 +19,7 @@ export function simpleFactory(info: ChangeableInfo): string {
   const emojiLogLevel: string = EmojiLogLevels[levelInfo];
   const wrap = colorize ? detailColor : ['', ''];
   template.push(`${wrap[0]}${timestamp}${wrap[1]}`);
-  const logLevel = emojiLogLevel.replace(levelInfo, level);
+  const logLevel = emojiLogLevel.replace(levelInfo, level).replace(levelInfo, levelInfo.toUpperCase());
   template.push(`${wrap[0]}[${platform}]${wrap[1]}`);
   template.push(logLevel);
   template.push(`${wrap[0]}[${name}]${wrap[1]}`);

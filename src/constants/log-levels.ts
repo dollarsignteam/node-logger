@@ -34,16 +34,16 @@ export const customLevels: AbstractConfigSetLevels = {
 };
 
 export const customColors: AbstractConfigSetColors = {
-  debug: 'magenta',
-  error: 'white redBG',
-  http: 'cyan',
-  info: 'white',
-  silly: 'gray',
-  success: 'green',
-  verbose: 'blue',
-  warn: 'yellow',
+  debug: 'bold magenta',
+  error: 'bold white redBG',
+  http: 'bold cyan',
+  info: 'bold white',
+  silly: 'bold dim white',
+  success: 'bold brightGreen',
+  verbose: 'bold blue',
+  warn: 'bold yellow',
 };
 
-export const detailColor = ['\x1B[90m\x1B[2m', '\x1B[22m\x1B[39m'];
+export const detailColor = ['\x1B[90m', '\x1B[39m'];
 
 export type LogLevel = keyof typeof LogLevels;
