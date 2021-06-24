@@ -70,6 +70,14 @@ export class Logger {
    * @param {?} args multiple log attributes that should be logged out
    * @returns {winston.Logger} winston logger instance
    */
+  public success(...args: unknown[]): winston.Logger {
+    return this.callLogger(LogLevels.success, ...args);
+  }
+
+  /**
+   * @param {?} args multiple log attributes that should be logged out
+   * @returns {winston.Logger} winston logger instance
+   */
   public warn(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.warn, ...args);
   }

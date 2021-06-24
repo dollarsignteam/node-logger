@@ -106,6 +106,13 @@ describe('Logger', () => {
       });
     });
 
+    describe('success', () => {
+      it('should call `callLogger`', () => {
+        logger.success('success message');
+        expect(logger.callLogger).toHaveBeenCalledWith('success', 'success message');
+      });
+    });
+
     describe('warn', () => {
       it('should call `callLogger`', () => {
         logger.warn('warn message');

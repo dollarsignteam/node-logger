@@ -1,10 +1,14 @@
 import { Logger } from '@/index';
 
+// disable default colorize with process env
+process.env.LOGGER_COLORIZE = 'false';
+
 class MyClass {
   private readonly logger = new Logger({
     level: 'silly',
     name: 'DEMO',
     platform: 'node',
+    colorize: true,
   });
 
   public constructor() {
@@ -24,6 +28,7 @@ class MyClass {
     this.logger.debug('I am a debug log');
     this.logger.verbose('I am a verbose log');
     this.logger.http('I am a http log');
+    this.logger.success('I am a success log');
     this.logger.info('I am an info log with name: %s and age: %d', data.name, data.age);
     this.logger.log('I am an log log with cars: %s', data.cars);
     this.logger.warn('Found %s at %s', 'error', new Date());
@@ -37,6 +42,7 @@ myClass.myMethod();
 
 const logger = new Logger({
   name: 'TEST',
+  colorize: true,
 });
 
 // circular

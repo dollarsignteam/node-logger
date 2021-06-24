@@ -15,6 +15,7 @@ export function loggerInfoFactory(info: ChangeableInfo, opts: LoggerOptions): Ch
     name: opts?.name || 'Logger',
     platform: opts?.platform || 'node',
     timestamp: getTimestamp(opts?.timestampFormat),
+    colorize: opts?.colorize,
   };
   info[INFO] = loggerInfo;
   info[CALLER] = {} as CallerInfo;
