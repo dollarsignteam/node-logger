@@ -14,8 +14,7 @@ export class Logger {
   public static cwdArray: string[] = process.cwd().split(sep);
 
   /**
-   * @param {string} name logger name
-   * @param {LoggerOptions} opts logger options
+   * @param {string|LoggerOptions} args name or logger options
    * @param {boolean} displayDifferentTimestamp milliseconds since the previous log
    * @example
    * ```typescript
