@@ -23,7 +23,7 @@ Demo file: `src/example/demo.ts`
 ```typescript
 import { Logger } from '@dollarsign/logger';
 
-// disable default colorize with process env
+// disabled default colorize with process env
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
@@ -67,8 +67,6 @@ myClass.myMethod();
 
 const logger = new Logger({
   name: 'TEST',
-  colorize: true,
-  displayDifferentTimestamp: true,
 });
 
 // circular
@@ -84,18 +82,18 @@ logger.debug(foo.circular);
 Output
 
 ```log
-2021-06-25 17:22:19.626 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
-2021-06-25 17:22:19.630 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] I am a debug log +4ms
-2021-06-25 17:22:19.631 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] I am a verbose log +1ms
-2021-06-25 17:22:19.631 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:32:17 MyClass.myMethod] I am a http log +0ms
-2021-06-25 17:22:19.632 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a success log +1ms
-2021-06-25 17:22:19.633 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +1ms
-2021-06-25 17:22:19.634 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +1ms
-2021-06-25 17:22:19.637 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] Found error at 2021-06-25T10:22:19.636Z +3ms
-2021-06-25 17:22:19.639 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] Error: Error passed as info +2ms
-2021-06-25 17:22:19.639 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] Error - `["Important error: ",{}]` +0ms
-2021-06-25 17:22:19.641 +07:00 [node] ️⬜️ INFO    [TEST] [src/example/demo.ts:57:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":{"$ref":"$"}}` +2ms
-2021-06-25 17:22:19.641 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:58:8 Object.<anonymous>] {"abc":"Hello","circular":{"$ref":"$"}} +0ms
+2021-06-25 22:39:04.450 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
+2021-06-25 22:39:04.454 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] I am a debug log +4ms
+2021-06-25 22:39:04.455 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] I am a verbose log +1ms
+2021-06-25 22:39:04.455 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:32:17 MyClass.myMethod] I am a http log +0ms
+2021-06-25 22:39:04.456 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a success log +1ms
+2021-06-25 22:39:04.457 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +1ms
+2021-06-25 22:39:04.458 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +1ms
+2021-06-25 22:39:04.460 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] Found error at 2021-06-25T15:39:04.460Z +2ms
+2021-06-25 22:39:04.461 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] Error: Error passed as info +1ms
+2021-06-25 22:39:04.462 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] Error - `["Important error: ",{}]` +1ms
+2021-06-25 22:39:04.463 +07:00 [node] ️⬜️ INFO    [TEST] [src/example/demo.ts:55:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":{"$ref":"$"}}`
+2021-06-25 22:39:04.464 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:56:8 Object.<anonymous>] {"abc":"Hello","circular":{"$ref":"$"}}
 ```
 
 ## Contributing
