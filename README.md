@@ -18,13 +18,14 @@ npm install --save @dollarsign/logger
 
 ### Example
 
-demo file: `src/example/demo.ts`
+Demo file: `src/example/demo.ts`
 
 ```typescript
 import { Logger } from '@dollarsign/logger';
 
 // disable default colorize with process env
 process.env.LOGGER_COLORIZE = 'false';
+process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
 class MyClass {
   private readonly logger = new Logger({
@@ -32,6 +33,7 @@ class MyClass {
     name: 'DEMO',
     platform: 'node',
     colorize: true,
+    displayDifferentTimestamp: true,
   });
 
   public constructor() {
@@ -65,6 +67,8 @@ myClass.myMethod();
 
 const logger = new Logger({
   name: 'TEST',
+  colorize: true,
+  displayDifferentTimestamp: true,
 });
 
 // circular
@@ -80,18 +84,18 @@ logger.debug(foo.circular);
 Output
 
 ```log
-2021-06-25 00:39:54.018 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:15:17 new MyClass] I am a silly log
-2021-06-25 00:39:54.023 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:28:17 MyClass.myMethod] I am a debug log
-2021-06-25 00:39:54.024 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:29:17 MyClass.myMethod] I am a verbose log
-2021-06-25 00:39:54.024 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] I am a http log
-2021-06-25 00:39:54.025 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] I am a success log
-2021-06-25 00:39:54.026 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:32:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32
-2021-06-25 00:39:54.027 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' }
-2021-06-25 00:39:54.030 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] Found error at 2021-06-24T17:39:54.029Z
-2021-06-25 00:39:54.030 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] Error: Error passed as info
-2021-06-25 00:39:54.031 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] Error - `["Important error: ",{}]`
-2021-06-25 00:39:54.032 +07:00 [node] ️⬜️ INFO    [TEST] [src/example/demo.ts:54:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":{"$ref":"$"}}`
-2021-06-25 00:39:54.032 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:55:8 Object.<anonymous>] {"abc":"Hello","circular":{"$ref":"$"}}
+2021-06-25 17:22:19.626 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
+2021-06-25 17:22:19.630 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:30:17 MyClass.myMethod] I am a debug log +4ms
+2021-06-25 17:22:19.631 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:31:17 MyClass.myMethod] I am a verbose log +1ms
+2021-06-25 17:22:19.631 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:32:17 MyClass.myMethod] I am a http log +0ms
+2021-06-25 17:22:19.632 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a success log +1ms
+2021-06-25 17:22:19.633 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +1ms
+2021-06-25 17:22:19.634 +07:00 [node] ️⬜️ INFO    [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +1ms
+2021-06-25 17:22:19.637 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] Found error at 2021-06-25T10:22:19.636Z +3ms
+2021-06-25 17:22:19.639 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] Error: Error passed as info +2ms
+2021-06-25 17:22:19.639 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] Error - `["Important error: ",{}]` +0ms
+2021-06-25 17:22:19.641 +07:00 [node] ️⬜️ INFO    [TEST] [src/example/demo.ts:57:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":{"$ref":"$"}}` +2ms
+2021-06-25 17:22:19.641 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:58:8 Object.<anonymous>] {"abc":"Hello","circular":{"$ref":"$"}} +0ms
 ```
 
 ## Contributing

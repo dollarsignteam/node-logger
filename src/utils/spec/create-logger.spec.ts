@@ -15,6 +15,7 @@ describe('winston', () => {
         name: 'TEST',
         platform: 'node',
         colorize: false,
+        displayDifferentTimestamp: false,
       };
       const logger = createLogger(opts);
       expect(logger.level).toBe(LogLevels.warn);

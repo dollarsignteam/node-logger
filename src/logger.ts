@@ -11,11 +11,31 @@ export class Logger {
   private logger: winston.Logger;
   public static cwdArray: string[] = process.cwd().split(sep);
 
-  constructor(opts?: LoggerOptions | string) {
-    if (typeof opts == 'string') {
-      opts = { name: opts };
+  /**
+   * @param {string} name logger name
+   * @param {LoggerOptions} opts logger options
+   * @param {boolean} displayDifferentTimestamp milliseconds since the previous log
+   * @example
+   * ```typescript
+   *  // create instance
+   *  const loggerA = new Logger();
+   *  // create instance with name
+   *  const loggerB = new Logger('App');
+   *  // create instance with `displayDifferentTimestamp`
+   *  const loggerC = new Logger('App', true);
+   *  // create instance with `LoggerOptions`
+   *  const loggerD = new Logger({ name: 'App' });
+   * ```
+   */
+  constructor();
+  constructor(name: string);
+  constructor(opts: LoggerOptions);
+  constructor(name: string, displayDifferentTimestamp: boolean);
+  constructor(args?: LoggerOptions | string, displayDifferentTimestamp?: boolean) {
+    if (typeof args === 'string') {
+      args = { name: args, displayDifferentTimestamp };
     }
-    this.logger = createLogger(opts);
+    this.logger = createLogger(args);
   }
 
   /**
@@ -140,3 +160,8 @@ export class Logger {
     return relativePath.substring(1);
   }
 }
+
+const loggerA = new Logger();
+const loggerB = new Logger('App');
+const loggerC = new Logger('App', true);
+const loggerD = new Logger({ name: 'App' });

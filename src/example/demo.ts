@@ -2,6 +2,7 @@ import { Logger } from '@/index';
 
 // disable default colorize with process env
 process.env.LOGGER_COLORIZE = 'false';
+process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
 class MyClass {
   private readonly logger = new Logger({
@@ -9,6 +10,7 @@ class MyClass {
     name: 'DEMO',
     platform: 'node',
     colorize: true,
+    displayDifferentTimestamp: true,
   });
 
   public constructor() {
@@ -43,6 +45,7 @@ myClass.myMethod();
 const logger = new Logger({
   name: 'TEST',
   colorize: true,
+  displayDifferentTimestamp: true,
 });
 
 // circular

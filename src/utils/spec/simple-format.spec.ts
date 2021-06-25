@@ -1,6 +1,36 @@
 import { CALLER, DATA, INFO, LogLevels } from '../../constants';
 import { CallerInfo, ChangeableInfo, LoggerInfo } from '../../interfaces';
-import { simpleFactory } from '../simple-format';
+import { getDataInfo, getMessage, simpleFactory } from '../simple-format';
+
+describe('getMessage', () => {
+  it('should return message', () => {
+    const result = getMessage('foo', false);
+    expect(result).toBe('foo');
+  });
+
+  it('should return message with color wrap', () => {
+    const msg = 'foo';
+    const result = getMessage('foo', true);
+    expect(result).toBe(`\x1B[90m${msg}\x1B[39m`);
+  });
+});
+
+describe('getDataInfo', () => {
+  it('should return `null` string with input is null', () => {
+    const result = getDataInfo(null);
+    expect(result).toBe('`null`');
+  });
+
+  it('should return single data info', () => {
+    const result = getDataInfo(['foo']);
+    expect(result).toBe('`foo`');
+  });
+
+  it('should return list data info', () => {
+    const result = getDataInfo(['foo', 'bar']);
+    expect(result).toBe('`["foo","bar"]`');
+  });
+});
 
 describe('simpleFactory', () => {
   const logInfo: LoggerInfo = {
@@ -18,6 +48,18 @@ describe('simpleFactory', () => {
     lineNumber: '1',
     columnNumber: '2',
   };
+
+  it('should return message log without ms info', () => {
+    const info: ChangeableInfo = {
+      level: LogLevels.debug,
+      label: '[TEST]',
+      ms: '+1ms',
+      message: 'foo',
+      [INFO]: logInfo,
+    };
+    const result = simpleFactory(info);
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] foo +1ms');
+  });
 
   it('should return message log without caller info', () => {
     const info: ChangeableInfo = {

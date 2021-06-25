@@ -44,6 +44,6 @@ export const customColors: AbstractConfigSetColors = {
   warn: 'bold yellow',
 };
 
-export const detailColor = ['\x1B[90m', '\x1B[39m'];
+export const colorWrap = ['\x1B[90m', '\x1B[39m'];
 
 export type LogLevel = keyof typeof LogLevels;

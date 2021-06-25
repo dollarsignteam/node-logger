@@ -2,33 +2,49 @@ import { toJSONString } from '@dollarsign/utils';
 import { format } from 'logform';
 import { types } from 'util';
 
-import { CALLER, DATA, detailColor, EmojiLogLevels, INFO } from '@/constants';
+import { CALLER, colorWrap, DATA, EmojiLogLevels, INFO } from '@/constants';
 import { ChangeableInfo } from '@/interfaces';
 
 const { printf } = format;
+
+/**
+ * @param {string} message log message
+ * @param {boolean} colorize is enabled color flag
+ * @returns {string} modified message
+ */
+export function getMessage(message: string, colorize: boolean): string {
+  return colorize ? `${colorWrap[0]}${message}${colorWrap[1]}` : message;
+}
+
+/**
+ * @param {?} data data info list
+ * @returns {string} data info string
+ */
+export function getDataInfo(data: unknown[]): string {
+  const info = data?.length === 1 ? data[0] : data;
+  return `\`${toJSONString(info)}\``;
+}
 
 /**
  * @param {ChangeableInfo} info Logform info message
  * @returns {string} logs message
  */
 export function simpleFactory(info: ChangeableInfo): string {
-  const { message, level } = info;
-  const data = info[DATA];
-  const { timestamp, name, level: levelInfo, platform, colorize } = info[INFO];
+  const { message, level: levelInfo, ms } = info;
+  const { timestamp, name, level, platform, colorize } = info[INFO];
+  const emojiLogLevel: string = EmojiLogLevels[level];
+  const logLevel = emojiLogLevel.replace(level, levelInfo).replace(level, level.toUpperCase());
   const template: string[] = [];
-  const emojiLogLevel: string = EmojiLogLevels[levelInfo];
-  const wrap = colorize ? detailColor : ['', ''];
-  template.push(`${wrap[0]}${timestamp}${wrap[1]}`);
-  const logLevel = emojiLogLevel.replace(levelInfo, level).replace(levelInfo, levelInfo.toUpperCase());
-  template.push(`${wrap[0]}[${platform}]${wrap[1]}`);
+  template.push(getMessage(timestamp, colorize));
+  template.push(`[${getMessage(platform, colorize)}]`);
   template.push(logLevel);
-  template.push(`${wrap[0]}[${name}]${wrap[1]}`);
+  template.push(`[${getMessage(name, colorize)}]`);
   if (info[CALLER]?.functionName) {
     const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
     if (`${absolutePath}`.indexOf('node_modules') > -1) {
-      template.push(`${wrap[0]}[${functionName}]${wrap[1]}`);
+      template.push(getMessage(`[${functionName}]`, colorize));
     } else {
-      template.push(`${wrap[0]}[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]${wrap[1]}`);
+      template.push(getMessage(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`, colorize));
     }
   }
   if (types.isNativeError(message)) {
@@ -36,13 +52,11 @@ export function simpleFactory(info: ChangeableInfo): string {
   } else {
     template.push(toJSONString(message));
   }
-  if (data?.length) {
-    template.push('-');
-    if (data.length == 1) {
-      template.push(`\`${toJSONString(data[0])}\``);
-    } else {
-      template.push(`\`${toJSONString(data)}\``);
-    }
+  if (info[DATA]?.length) {
+    template.push(`- ${getDataInfo(info[DATA])}`);
+  }
+  if (ms) {
+    template.push(getMessage(ms, colorize));
   }
   return template.join(' ').trim();
 }
