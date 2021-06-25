@@ -160,8 +160,3 @@ export class Logger {
     return relativePath.substring(1);
   }
 }
-
-const loggerA = new Logger();
-const loggerB = new Logger('App');
-const loggerC = new Logger('App', true);
-const loggerD = new Logger({ name: 'App' });
