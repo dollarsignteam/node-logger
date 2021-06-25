@@ -1,6 +1,6 @@
 import { Logger } from '@/index';
 
-// disable default colorize with process env
+// disabled default colorize with process env
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
@@ -44,8 +44,6 @@ myClass.myMethod();
 
 const logger = new Logger({
   name: 'TEST',
-  colorize: true,
-  displayDifferentTimestamp: true,
 });
 
 // circular

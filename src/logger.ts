@@ -1,5 +1,6 @@
 import 'source-map-support/register';
 
+import { isDisabled } from '@dollarsign/utils';
 import { basename, sep } from 'path';
 import winston from 'winston';
 
@@ -9,6 +10,7 @@ import { createLogger } from '@/utils/create-logger';
 
 export class Logger {
   private logger: winston.Logger;
+  private options: LoggerOptions;
   public static cwdArray: string[] = process.cwd().split(sep);
 
   /**
@@ -31,11 +33,35 @@ export class Logger {
   constructor(name: string);
   constructor(opts: LoggerOptions);
   constructor(name: string, displayDifferentTimestamp: boolean);
-  constructor(args?: LoggerOptions | string, displayDifferentTimestamp?: boolean) {
-    if (typeof args === 'string') {
-      args = { name: args, displayDifferentTimestamp };
+  constructor(args?: string | LoggerOptions, displayDifferentTimestamp?: boolean) {
+    this.configure(args, displayDifferentTimestamp);
+    this.configureWithEnvironment();
+    this.logger = createLogger(this.options);
+  }
+
+  /**
+   * @param {string|LoggerOptions} args name or logger options
+   * @param {boolean} displayDifferentTimestamp milliseconds since the previous log
+   */
+  private configure(args?: string | LoggerOptions, displayDifferentTimestamp?: boolean): void {
+    if (typeof args !== 'string') {
+      this.options = { ...this.options, ...args };
+    } else {
+      this.options = {
+        name: args,
+        displayDifferentTimestamp,
+      };
     }
-    this.logger = createLogger(args);
+  }
+
+  /**
+   * overwrite default config with environment variable
+   */
+  private configureWithEnvironment(): void {
+    const { LOGGER_COLORIZE, LOGGER_DISPLAY_DIFFERENT_TIMESTAMP } = process.env;
+    const colorize = this.options.colorize ?? !isDisabled(LOGGER_COLORIZE);
+    const displayDifferentTimestamp = this.options.displayDifferentTimestamp ?? !isDisabled(LOGGER_DISPLAY_DIFFERENT_TIMESTAMP);
+    this.options = { ...this.options, ...{ colorize, displayDifferentTimestamp } };
   }
 
   /**
@@ -147,7 +173,7 @@ export class Logger {
 
   /**
    * @param {string} filePath absolute file path
-   * @returns {string | null} relative path `string` or `null`
+   * @returns {string|null} relative path `string` or `null`
    */
   public static getRelativePath(filePath: string): string | null {
     if (!filePath) {

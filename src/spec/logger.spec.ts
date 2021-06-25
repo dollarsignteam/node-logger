@@ -4,7 +4,12 @@ import { CallerInfo, LoggerOptions } from '../interfaces';
 import { Logger } from '../logger';
 
 describe('Logger', () => {
-  const opts: LoggerOptions = { name: 'TEST', level: 'info' };
+  const opts: LoggerOptions = {
+    name: 'TEST',
+    level: 'info',
+    colorize: false,
+    displayDifferentTimestamp: false,
+  };
   const logger = new Logger(opts);
 
   it('should be defined', () => {
