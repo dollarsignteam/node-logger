@@ -36,9 +36,9 @@ export function simpleFactory(info: ChangeableInfo): string {
   const logLevel = emojiLogLevel.replace(level, levelInfo).replace(level, level.toUpperCase());
   const template: string[] = [];
   template.push(getMessage(timestamp, colorize));
-  template.push(`[${getMessage(platform, colorize)}]`);
+  template.push(getMessage(`[${platform}]`, colorize));
   template.push(logLevel);
-  template.push(`[${getMessage(name, colorize)}]`);
+  template.push(getMessage(`[${name}]`, colorize));
   if (info[CALLER]?.functionName) {
     const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
     if (`${absolutePath}`.indexOf('node_modules') > -1) {
