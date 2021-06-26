@@ -1,6 +1,6 @@
 import { Format, format } from 'logform';
 
-import { CALLER, INFO, LEVEL, SPLAT } from '@/constants';
+import { CALLER, INFO, LEVEL, Options, SPLAT } from '@/constants';
 import { CallerInfo, ChangeableInfo, LoggerInfo, LoggerOptions } from '@/interfaces';
 import { getTimestamp } from '@/utils/get-timestamp';
 
@@ -12,8 +12,8 @@ import { getTimestamp } from '@/utils/get-timestamp';
 export function loggerInfoFactory(info: ChangeableInfo, opts: LoggerOptions): ChangeableInfo {
   const loggerInfo: LoggerInfo = {
     level: info[LEVEL],
-    name: opts?.name || 'Logger',
-    platform: opts?.platform || 'node',
+    name: opts?.name || Options.name,
+    platform: opts?.platform || Options.platform,
     timestamp: getTimestamp(opts?.timestampFormat),
     colorize: opts?.colorize,
   };
