@@ -11,7 +11,7 @@ import { createLogger } from '@/utils/create-logger';
 export class Logger {
   private logger: winston.Logger;
   private options: LoggerOptions;
-  public static cwdArray: string[] = process.cwd().split(sep);
+  private static cwdList: string[] = process.cwd().split(sep);
 
   /**
    * @param {string|LoggerOptions} args name or logger options
@@ -180,7 +180,7 @@ export class Logger {
     }
     const subPathList = Object.entries(filePath.split(sep));
     const relativePath = subPathList.reduce((currentPath: string, subPath) => {
-      return subPath[1] !== this.cwdArray[subPath[0]] ? `${currentPath}${sep}${subPath[1]}` : currentPath;
+      return subPath[1] !== this.cwdList[subPath[0]] ? `${currentPath}${sep}${subPath[1]}` : currentPath;
     }, '');
     return relativePath.substring(1);
   }
