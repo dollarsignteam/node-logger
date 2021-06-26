@@ -1,6 +1,6 @@
 import { Logger } from '@/index';
 
-// disabled default colorize with environment variables
+// disabled default options with environment variables
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
