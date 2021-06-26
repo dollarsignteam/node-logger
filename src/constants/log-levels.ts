@@ -15,7 +15,7 @@ export enum EmojiLogLevels {
   debug = '🟪 debug  ',
   error = '🟥 error  ',
   http = '🟫 http   ',
-  info = '️⬜️ info   ',
+  info = '⬜️ INFO   ',
   silly = '⬛️ silly  ',
   success = '🟩 success',
   verbose = '🟦 verbose',
