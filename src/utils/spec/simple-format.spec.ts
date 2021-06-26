@@ -69,7 +69,7 @@ describe('simpleFactory', () => {
       [INFO]: logInfo,
     };
     const result = simpleFactory(info);
-    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] Error: foo');
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] [Error: foo]');
   });
 
   it('should return message log with caller info and single data', () => {

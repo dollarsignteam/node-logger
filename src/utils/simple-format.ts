@@ -1,4 +1,4 @@
-import { toJSONString } from '@dollarsign/utils';
+import { jsonStringify } from '@dollarsign/utils';
 import { format } from 'logform';
 import { types } from 'util';
 
@@ -22,7 +22,7 @@ export function getMessage(message: string, colorize: boolean): string {
  */
 export function getDataInfo(data: unknown[]): string {
   const info = data?.length === 1 ? data[0] : data;
-  return `\`${toJSONString(info)}\``;
+  return `\`${jsonStringify(info)}\``;
 }
 
 /**
@@ -47,10 +47,11 @@ export function simpleFactory(info: ChangeableInfo): string {
       template.push(getMessage(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`, colorize));
     }
   }
+  const logMessage = jsonStringify(message);
   if (types.isNativeError(message)) {
-    template.push(message);
+    template.push(`${logMessage}`.slice(1, -1));
   } else {
-    template.push(toJSONString(message));
+    template.push(logMessage);
   }
   if (info[DATA]?.length) {
     template.push(`- ${getDataInfo(info[DATA])}`);

@@ -1,6 +1,6 @@
 import { Logger } from '@/index';
 
-// disabled default colorize with process env
+// disabled default colorize with environment variables
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 
@@ -18,15 +18,17 @@ class MyClass {
   }
 
   public myMethod(): void {
-    const data = {
-      name: 'Lupin',
-      age: 32,
-      cars: {
+    const Lupin = function (): void {
+      this.error = new Error('Internal error');
+      this.error.code = 'INTERNAL_ERROR';
+      this.name = 'Lupin';
+      this.age = 32;
+      this.cars = {
         car1: 'Tesla',
         car2: 'BMW',
-      },
+      };
     };
-
+    const data = new Lupin();
     this.logger.debug('I am a debug log');
     this.logger.verbose('I am a verbose log');
     this.logger.http('I am a http log');
@@ -34,8 +36,8 @@ class MyClass {
     this.logger.info('I am an info log with name: %s and age: %d', data.name, data.age);
     this.logger.log('I am an log log with cars: %s', data.cars);
     this.logger.warn('Found %s at %s', 'error', new Date());
-    this.logger.error(new Error('Error passed as info'));
-    this.logger.error('Error', 'Important error: ', new Error('Error passed as meta'));
+    this.logger.error('Error', new Error('Passed as meta'));
+    this.logger.error(data.error);
   }
 }
 
