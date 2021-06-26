@@ -2,7 +2,7 @@ import { jsonStringify } from '@dollarsign/utils';
 import { format } from 'logform';
 import { types } from 'util';
 
-import { CALLER, colorWrap, DATA, EmojiLogLevels, INFO, Options } from '@/constants';
+import { CALLER, colorWrap, DATA, EmojiLogLevels, INFO } from '@/constants';
 import { ChangeableInfo } from '@/interfaces';
 
 const { printf } = format;
