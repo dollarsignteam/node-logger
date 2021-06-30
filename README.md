@@ -44,6 +44,7 @@ class MyClass {
     const Lupin = function (): void {
       this.error = new Error('Internal error');
       this.error.code = 'INTERNAL_ERROR';
+      this.error.message = [{ failed: 'cars' }];
       this.name = 'Lupin';
       this.age = 32;
       this.cars = {
@@ -79,24 +80,23 @@ function Foo(): void {
 const foo = new Foo();
 logger.info('Circular', foo);
 logger.debug(foo.circular);
-
 ```
 
 Output
 
 ```log
-2021-06-26 21:33:56.464 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
-2021-06-26 21:33:56.473 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:32:17 MyClass.myMethod] I am a debug log +9ms
-2021-06-26 21:33:56.475 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a verbose log +2ms
-2021-06-26 21:33:56.478 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am a http log +3ms
-2021-06-26 21:33:56.479 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am a success log +1ms
-2021-06-26 21:33:56.481 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +2ms
-2021-06-26 21:33:56.486 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +5ms
-2021-06-26 21:33:56.490 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] Found error at 2021-06-26T14:33:56.488Z +4ms
-2021-06-26 21:33:56.587 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +97ms
-2021-06-26 21:33:56.589 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] [Error: Internal error] { code: 'INTERNAL_ERROR' } +2ms
-2021-06-26 21:33:56.591 +07:00 [node] ⬜️ INFO    [TEST] [src/example/demo.ts:57:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":"[Circular]"}`
-2021-06-26 21:33:56.592 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:58:8 Object.<anonymous>] {"abc":"Hello","circular":"[Circular]"}
+2021-06-30 17:29:37.852 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
+2021-06-30 17:29:37.856 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a debug log +4ms
+2021-06-30 17:29:37.856 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am a verbose log +0ms
+2021-06-30 17:29:37.857 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am a http log +1ms
+2021-06-30 17:29:37.858 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] I am a success log +1ms
+2021-06-30 17:29:37.858 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +0ms
+2021-06-30 17:29:37.860 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +2ms
+2021-06-30 17:29:37.862 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] Found error at 2021-06-30T10:29:37.862Z +2ms
+2021-06-30 17:29:37.869 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +7ms
+2021-06-30 17:29:37.871 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:41:17 MyClass.myMethod] { [Error: [ { failed: 'cars' } ]] code: 'INTERNAL_ERROR' } +2ms
+2021-06-30 17:29:37.872 +07:00 [node] ⬜️ INFO    [TEST] [src/example/demo.ts:58:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":"[Circular]"}`
+2021-06-30 17:29:37.873 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:59:8 Object.<anonymous>] {"abc":"Hello","circular":"[Circular]"}
 ```
 
 ## Contributing

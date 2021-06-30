@@ -21,6 +21,7 @@ class MyClass {
     const Lupin = function (): void {
       this.error = new Error('Internal error');
       this.error.code = 'INTERNAL_ERROR';
+      this.error.message = [{ failed: 'cars' }];
       this.name = 'Lupin';
       this.age = 32;
       this.cars = {
