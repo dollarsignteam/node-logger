@@ -57,10 +57,12 @@ export class Logger {
    * overwrite default config with environment variable
    */
   private configureWithEnvironment(): void {
-    const { LOGGER_COLORIZE, LOGGER_DISPLAY_DIFFERENT_TIMESTAMP } = process.env;
+    const { LOGGER_COLORIZE, LOGGER_DISPLAY_DIFFERENT_TIMESTAMP, LOGGER_DISPLAY_FILE_PATH, LOGGER_DISPLAY_FUNCTION_NAME } = process.env;
     const colorize = this.options.colorize ?? !isDisabled(LOGGER_COLORIZE);
     const displayDifferentTimestamp = this.options.displayDifferentTimestamp ?? !isDisabled(LOGGER_DISPLAY_DIFFERENT_TIMESTAMP);
-    this.options = { ...this.options, ...{ colorize, displayDifferentTimestamp } };
+    const displayFilePath = this.options.displayFilePath ?? !isDisabled(LOGGER_DISPLAY_FILE_PATH);
+    const displayFunctionName = this.options.displayFunctionName ?? !isDisabled(LOGGER_DISPLAY_FUNCTION_NAME);
+    this.options = { ...this.options, ...{ colorize, displayDifferentTimestamp, displayFilePath, displayFunctionName } };
   }
 
   /**

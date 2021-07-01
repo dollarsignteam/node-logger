@@ -26,6 +26,8 @@ import { Logger } from '@dollarsign/logger';
 // disabled default options with environment variables
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
+process.env.LOGGER_DISPLAY_FILE_PATH = 'false';
+process.env.LOGGER_DISPLAY_FUNCTION_NAME = 'false';
 
 class MyClass {
   private readonly logger = new Logger({
@@ -34,6 +36,8 @@ class MyClass {
     platform: 'node',
     colorize: true,
     displayDifferentTimestamp: true,
+    displayFilePath: true,
+    displayFunctionName: true,
   });
 
   public constructor() {
@@ -85,18 +89,18 @@ logger.debug(foo.circular);
 Output
 
 ```log
-2021-06-30 17:29:37.852 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:17:17 new MyClass] I am a silly log +0ms
-2021-06-30 17:29:37.856 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:33:17 MyClass.myMethod] I am a debug log +4ms
-2021-06-30 17:29:37.856 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:34:17 MyClass.myMethod] I am a verbose log +0ms
-2021-06-30 17:29:37.857 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:35:17 MyClass.myMethod] I am a http log +1ms
-2021-06-30 17:29:37.858 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:36:17 MyClass.myMethod] I am a success log +1ms
-2021-06-30 17:29:37.858 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +0ms
-2021-06-30 17:29:37.860 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +2ms
-2021-06-30 17:29:37.862 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] Found error at 2021-06-30T10:29:37.862Z +2ms
-2021-06-30 17:29:37.869 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +7ms
-2021-06-30 17:29:37.871 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:41:17 MyClass.myMethod] { [Error: [ { failed: 'cars' } ]] code: 'INTERNAL_ERROR' } +2ms
-2021-06-30 17:29:37.872 +07:00 [node] ⬜️ INFO    [TEST] [src/example/demo.ts:58:8 Object.<anonymous>] Circular - `{"abc":"Hello","circular":"[Circular]"}`
-2021-06-30 17:29:37.873 +07:00 [node] 🟪 DEBUG   [TEST] [src/example/demo.ts:59:8 Object.<anonymous>] {"abc":"Hello","circular":"[Circular]"}
+2021-07-01 14:06:33.588 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:21:17 new MyClass] I am a silly log +0ms
+2021-07-01 14:06:33.592 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am a debug log +4ms
+2021-07-01 14:06:33.592 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am a verbose log +0ms
+2021-07-01 14:06:33.593 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] I am a http log +1ms
+2021-07-01 14:06:33.594 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] I am a success log +1ms
+2021-07-01 14:06:33.594 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:41:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +0ms
+2021-07-01 14:06:33.596 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:42:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +2ms
+2021-07-01 14:06:33.598 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:43:17 MyClass.myMethod] Found error at 2021-07-01T07:06:33.598Z +2ms
+2021-07-01 14:06:33.604 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:44:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +6ms
+2021-07-01 14:06:33.606 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:45:17 MyClass.myMethod] { [Error: [ { failed: 'cars' } ]] code: 'INTERNAL_ERROR' } +2ms
+2021-07-01 14:06:33.607 +07:00 [node] ⬜️ INFO    [TEST] Circular - `{"abc":"Hello","circular":"[Circular]"}`
+2021-07-01 14:06:33.608 +07:00 [node] 🟪 DEBUG   [TEST] {"abc":"Hello","circular":"[Circular]"}
 ```
 
 ## Contributing

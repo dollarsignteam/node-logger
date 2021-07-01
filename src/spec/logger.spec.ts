@@ -9,6 +9,8 @@ describe('Logger', () => {
     level: 'info',
     colorize: false,
     displayDifferentTimestamp: false,
+    displayFilePath: false,
+    displayFunctionName: false,
   };
   const logger = new Logger(opts);
 

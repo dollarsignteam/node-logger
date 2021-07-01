@@ -3,6 +3,8 @@ import { Logger } from '@/index';
 // disabled default options with environment variables
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
+process.env.LOGGER_DISPLAY_FILE_PATH = 'false';
+process.env.LOGGER_DISPLAY_FUNCTION_NAME = 'false';
 
 class MyClass {
   private readonly logger = new Logger({
@@ -11,6 +13,8 @@ class MyClass {
     platform: 'node',
     colorize: true,
     displayDifferentTimestamp: true,
+    displayFilePath: true,
+    displayFunctionName: true,
   });
 
   public constructor() {

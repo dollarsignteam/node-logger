@@ -39,6 +39,8 @@ describe('simpleFactory', () => {
     level: 'debug',
     platform: 'node',
     colorize: false,
+    displayFilePath: true,
+    displayFunctionName: true,
   };
   const callerInfo: CallerInfo = {
     functionName: 'Mock.test',
@@ -98,5 +100,31 @@ describe('simpleFactory', () => {
     };
     const result = simpleFactory(info);
     expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] [Mock.test] data - `["list",[1,2,3]]`');
+  });
+
+  it('should return message log without file path and function name', () => {
+    const caller = { ...callerInfo };
+    caller.absolutePath = `@/node_modules/${caller.absolutePath}`;
+    const info: ChangeableInfo = {
+      level: LogLevels.debug,
+      label: '[TEST]',
+      message: 'foo',
+      [CALLER]: caller,
+      [INFO]: { ...logInfo, displayFilePath: true, displayFunctionName: false },
+    };
+    const result = simpleFactory(info);
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] foo');
+  });
+
+  it('should return message log without function name', () => {
+    const info: ChangeableInfo = {
+      level: LogLevels.debug,
+      label: '[TEST]',
+      message: 'foo',
+      [CALLER]: callerInfo,
+      [INFO]: { ...logInfo, displayFunctionName: false },
+    };
+    const result = simpleFactory(info);
+    expect(result).toBe('2021-06-23T11:44:55.124Z [node] 🟪 DEBUG   [Logger] [src/test.ts:1:2] foo');
   });
 });

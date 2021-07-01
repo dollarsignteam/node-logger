@@ -31,7 +31,7 @@ export function getDataInfo(data: unknown[]): string {
  */
 export function simpleFactory(info: ChangeableInfo): string {
   const { message, level: levelInfo, ms } = info;
-  const { timestamp, name, level, platform, colorize } = info[INFO];
+  const { timestamp, name, level, platform, colorize, displayFilePath, displayFunctionName } = info[INFO];
   const emojiLogLevel: string = EmojiLogLevels[level];
   const logLevel = emojiLogLevel.replace(level, levelInfo).replace(level, level.toUpperCase());
   const template: string[] = [];
@@ -39,12 +39,17 @@ export function simpleFactory(info: ChangeableInfo): string {
   template.push(getMessage(`[${platform}]`, colorize));
   template.push(logLevel);
   template.push(getMessage(`[${name}]`, colorize));
-  if (info[CALLER]?.functionName) {
+  if ((displayFilePath || displayFunctionName) && info[CALLER]?.functionName) {
+    const fileLocation: string[] = [];
     const { relativePath, absolutePath, lineNumber, columnNumber, functionName } = info[CALLER];
-    if (`${absolutePath}`.indexOf('node_modules') > -1) {
-      template.push(getMessage(`[${functionName}]`, colorize));
-    } else {
-      template.push(getMessage(`[${relativePath}:${lineNumber}:${columnNumber} ${functionName}]`, colorize));
+    if (displayFilePath && `${absolutePath}`.indexOf('node_modules') < 0) {
+      fileLocation.push(`${relativePath}:${lineNumber}:${columnNumber}`);
+    }
+    if (displayFunctionName) {
+      fileLocation.push(functionName);
+    }
+    if (fileLocation.length) {
+      template.push(getMessage(`[${fileLocation.join(' ')}]`, colorize));
     }
   }
   const logMessage = jsonStringify(message);
