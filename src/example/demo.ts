@@ -34,6 +34,7 @@ class MyClass {
       };
     };
     const data = new Lupin();
+    this.logger.trace('I am a trace log');
     this.logger.debug('I am a debug log');
     this.logger.verbose('I am a verbose log');
     this.logger.http('I am a http log');

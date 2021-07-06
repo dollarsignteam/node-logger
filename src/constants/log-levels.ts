@@ -7,6 +7,7 @@ export enum LogLevels {
   info = 'info',
   silly = 'silly',
   success = 'success',
+  trace = 'trace',
   verbose = 'verbose',
   warn = 'warn',
 }
@@ -18,6 +19,7 @@ export enum EmojiLogLevels {
   info = '⬜️ info   ',
   silly = '⬛️ silly  ',
   success = '🟩 success',
+  trace = '🟫 trace  ',
   verbose = '🟦 verbose',
   warn = '🟧 warn   ',
 }
@@ -30,7 +32,8 @@ export const customLevels: AbstractConfigSetLevels = {
   http: 4,
   verbose: 5,
   debug: 6,
-  silly: 7,
+  trace: 7,
+  silly: 8,
 };
 
 export const customColors: AbstractConfigSetColors = {
@@ -40,6 +43,7 @@ export const customColors: AbstractConfigSetColors = {
   info: 'bold white',
   silly: 'bold dim white',
   success: 'bold brightGreen',
+  trace: 'bold cyan',
   verbose: 'bold blue',
   warn: 'bold yellow',
 };

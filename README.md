@@ -2,6 +2,10 @@
 
 Logger for Node.js
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dollarsignteam/node-logger/Node.js%20Package?logo=github)][1]
+[![npm (scoped)](https://img.shields.io/npm/v/@dollarsign/logger?logo=npm)][2]
+[![GitHub license](https://img.shields.io/github/license/dollarsignteam/node-logger)][3]
+
 ## Installation
 
 ### Yarn
@@ -57,6 +61,7 @@ class MyClass {
       };
     };
     const data = new Lupin();
+    this.logger.trace('I am a trace log');
     this.logger.debug('I am a debug log');
     this.logger.verbose('I am a verbose log');
     this.logger.http('I am a http log');
@@ -89,23 +94,24 @@ logger.debug(foo.circular);
 Output
 
 ```log
-2021-07-01 14:06:33.588 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:21:17 new MyClass] I am a silly log +0ms
-2021-07-01 14:06:33.592 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am a debug log +4ms
-2021-07-01 14:06:33.592 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am a verbose log +0ms
-2021-07-01 14:06:33.593 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] I am a http log +1ms
-2021-07-01 14:06:33.594 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] I am a success log +1ms
-2021-07-01 14:06:33.594 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:41:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +0ms
-2021-07-01 14:06:33.596 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:42:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +2ms
-2021-07-01 14:06:33.598 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:43:17 MyClass.myMethod] Found error at 2021-07-01T07:06:33.598Z +2ms
-2021-07-01 14:06:33.604 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:44:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +6ms
-2021-07-01 14:06:33.606 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:45:17 MyClass.myMethod] { [Error: [ { failed: 'cars' } ]] code: 'INTERNAL_ERROR' } +2ms
-2021-07-01 14:06:33.607 +07:00 [node] ⬜️ INFO    [TEST] Circular - `{"abc":"Hello","circular":"[Circular]"}`
-2021-07-01 14:06:33.608 +07:00 [node] 🟪 DEBUG   [TEST] {"abc":"Hello","circular":"[Circular]"}
+2021-07-07 00:56:41.218 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:21:17 new MyClass] I am a silly log +0ms
+2021-07-07 00:56:41.221 +07:00 [node] 🟫 TRACE   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am a trace log +3ms
+2021-07-07 00:56:41.222 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am a debug log +1ms
+2021-07-07 00:56:41.223 +07:00 [node] 🟦 VERBOSE [DEMO] [src/example/demo.ts:39:17 MyClass.myMethod] I am a verbose log +1ms
+2021-07-07 00:56:41.223 +07:00 [node] 🟫 HTTP    [DEMO] [src/example/demo.ts:40:17 MyClass.myMethod] I am a http log +0ms
+2021-07-07 00:56:41.224 +07:00 [node] 🟩 SUCCESS [DEMO] [src/example/demo.ts:41:17 MyClass.myMethod] I am a success log +1ms
+2021-07-07 00:56:41.225 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:42:17 MyClass.myMethod] I am an info log with name: Lupin and age: 32 +1ms
+2021-07-07 00:56:41.226 +07:00 [node] ⬜️ INFO    [DEMO] [src/example/demo.ts:43:17 MyClass.myMethod] I am an log log with cars: { car1: 'Tesla', car2: 'BMW' } +1ms
+2021-07-07 00:56:41.228 +07:00 [node] 🟧 WARN    [DEMO] [src/example/demo.ts:44:17 MyClass.myMethod] Found error at 2021-07-06T17:56:41.228Z +2ms
+2021-07-07 00:56:41.237 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:45:17 MyClass.myMethod] Error Passed as meta - `"[Error: Passed as meta]"` +9ms
+2021-07-07 00:56:41.239 +07:00 [node] 🟥 ERROR   [DEMO] [src/example/demo.ts:46:17 MyClass.myMethod] { [Error: [ { failed: 'cars' } ]] code: 'INTERNAL_ERROR' } +2ms
+2021-07-07 00:56:41.241 +07:00 [node] ⬜️ INFO    [TEST] Circular - `{"abc":"Hello","circular":"[Circular]"}`
+2021-07-07 00:56:41.242 +07:00 [node] 🟪 DEBUG   [TEST] {"abc":"Hello","circular":"[Circular]"}
 ```
 
 ## Contributing
 
-Contributions welcome! See [Contributing](CONTRIBUTING.md).
+Contributions welcome! See [Contributing][4].
 
 ## Author
 
@@ -113,4 +119,9 @@ Dollarsign
 
 ## License
 
-Licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Licensed under the MIT License - see the [LICENSE][3] file for details.
+
+[1]: https://github.com/dollarsignteam/node-logger
+[2]: https://www.npmjs.com/package/@dollarsign/logger
+[3]: https://github.com/dollarsignteam/node-logger/blob/main/LICENSE
+[4]: https://github.com/dollarsignteam/node-logger/blob/main/CONTRIBUTING.md

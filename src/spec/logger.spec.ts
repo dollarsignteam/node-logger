@@ -78,6 +78,13 @@ describe('Logger', () => {
       });
     });
 
+    describe('trace', () => {
+      it('should call `callLogger`', () => {
+        logger.trace({ debug: 'true' });
+        expect(logger.callLogger).toHaveBeenCalledWith('trace', { debug: 'true' });
+      });
+    });
+
     describe('debug', () => {
       it('should call `callLogger`', () => {
         logger.debug({ debug: 'true' });
