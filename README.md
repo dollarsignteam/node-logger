@@ -109,6 +109,10 @@ Output
 2021-07-07 00:56:41.242 +07:00 [node] 🟪 DEBUG   [TEST] {"abc":"Hello","circular":"[Circular]"}
 ```
 
+## Documentation
+
+<https://dollarsignteam.github.io/node-logger/>
+
 ## Contributing
 
 Contributions welcome! See [Contributing][4].
