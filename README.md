@@ -93,7 +93,7 @@ logger.debug(foo.circular);
 
 Output
 
-```log
+```shell
 2021-07-07 00:56:41.218 +07:00 [node] ⬛️ SILLY   [DEMO] [src/example/demo.ts:21:17 new MyClass] I am a silly log +0ms
 2021-07-07 00:56:41.221 +07:00 [node] 🟫 TRACE   [DEMO] [src/example/demo.ts:37:17 MyClass.myMethod] I am a trace log +3ms
 2021-07-07 00:56:41.222 +07:00 [node] 🟪 DEBUG   [DEMO] [src/example/demo.ts:38:17 MyClass.myMethod] I am a debug log +1ms

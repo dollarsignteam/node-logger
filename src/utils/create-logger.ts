@@ -10,8 +10,8 @@ import { splatFormat } from '@/utils/splat-format';
 const { combine, colorize, ms } = format;
 
 /**
- * @param {LoggerOptions} options logger options
- * @returns {Logger} winston logger
+ * @param options - logger options
+ * @returns winston logger
  */
 export function createLogger(opts?: LoggerOptions): Logger {
   const logFormat: Format[] = [];

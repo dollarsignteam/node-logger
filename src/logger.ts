@@ -14,8 +14,8 @@ export class Logger {
   private static cwdList: string[] = process.cwd().split(sep);
 
   /**
-   * @param {string|LoggerOptions} args name or logger options
-   * @param {boolean} displayDifferentTimestamp milliseconds since the previous log
+   * @param args - name or logger options
+   * @param displayDifferentTimestamp - milliseconds since the previous log
    * @example
    * ```typescript
    *  // create instance
@@ -39,8 +39,8 @@ export class Logger {
   }
 
   /**
-   * @param {string|LoggerOptions} args name or logger options
-   * @param {boolean} displayDifferentTimestamp milliseconds since the previous log
+   * @param args - name or logger options
+   * @param displayDifferentTimestamp - milliseconds since the previous log
    */
   private configure(args?: string | LoggerOptions, displayDifferentTimestamp?: boolean): void {
     if (typeof args !== 'string') {
@@ -66,89 +66,89 @@ export class Logger {
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public log(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.info, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public silly(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.silly, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public trace(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.trace, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public debug(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.debug, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public verbose(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.verbose, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public http(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.http, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public info(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.info, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public success(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.success, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public warn(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.warn, ...args);
   }
 
   /**
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public error(...args: unknown[]): winston.Logger {
     return this.callLogger(LogLevels.error, ...args);
   }
 
   /**
-   * @param {string} level log level `string`
-   * @param {?} args multiple log attributes that should be logged out
-   * @returns {winston.Logger} winston logger instance
+   * @param level - log level `string`
+   * @param args - multiple log attributes that should be logged out
+   * @returns winston logger instance
    */
   public callLogger(level: string, ...args: unknown[]): winston.Logger {
     const callerInfo = this.getCallerInfo(1);
@@ -157,9 +157,9 @@ export class Logger {
   }
 
   /**
-   * @param {number} index stack index
-   * @param {Error} error optional `Error`
-   * @returns {CallerInfo} caller info
+   * @param index - stack index
+   * @param error - optional `Error`
+   * @returns caller info
    */
   public getCallerInfo(index: number, error?: Error): CallerInfo {
     const stackRegA = /at\s+(.*)\s+\((.*):(\d*):(\d*)\)/gi;
@@ -181,8 +181,8 @@ export class Logger {
   }
 
   /**
-   * @param {string} filePath absolute file path
-   * @returns {string|null} relative path `string` or `null`
+   * @param filePath - absolute file path
+   * @returns relative path `string` or `null`
    */
   public static getRelativePath(filePath: string): string | null {
     if (!filePath) {

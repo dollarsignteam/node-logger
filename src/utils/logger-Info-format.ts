@@ -5,9 +5,9 @@ import { CallerInfo, ChangeableInfo, LoggerInfo, LoggerOptions } from '@/interfa
 import { getTimestamp } from '@/utils/get-timestamp';
 
 /**
- * @param {ChangeableInfo} info Logform info message
- * @param {LoggerOptions} opts logger options
- * @returns {ChangeableInfo} logger information
+ * @param info - Logform info message
+ * @param opts - logger options
+ * @returns logger information
  */
 export function loggerInfoFactory(info: ChangeableInfo, opts: LoggerOptions): ChangeableInfo {
   const loggerInfo: LoggerInfo = {
@@ -31,8 +31,8 @@ export function loggerInfoFactory(info: ChangeableInfo, opts: LoggerOptions): Ch
 }
 
 /**
- * @param {LoggerOptions} opts logger info options
- * @returns {Format} logger info format
+ * @param opts - logger info options
+ * @returns logger info format
  */
 export function loggerInfoFormat(opts?: LoggerOptions): Format {
   return format(loggerInfoFactory)(opts);

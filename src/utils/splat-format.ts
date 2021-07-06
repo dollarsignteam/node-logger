@@ -14,9 +14,9 @@ export class Splatter {
   }
 
   /**
-   * @param {ChangeableInfo} info Logform info message
-   * @param {String[]} tokens set of string interpolation tokens
-   * @returns {ChangeableInfo} modified info message
+   * @param info - Logform info message
+   * @param tokens - set of string interpolation tokens
+   * @returns modified info message
    */
   splat(info: ChangeableInfo, tokens: string[]): ChangeableInfo {
     const msg = info.message;
@@ -35,9 +35,9 @@ export class Splatter {
   }
 
   /**
-   * @param {ChangeableInfo} info Logform info message
-   * @param {Object} opts options for this instance
-   * @returns {ChangeableInfo} modified info message
+   * @param info - Logform info message
+   * @param opts - options for this instance
+   * @returns modified info message
    */
   transform(info: ChangeableInfo): ChangeableInfo {
     const msg = info.message;
@@ -59,8 +59,8 @@ export class Splatter {
 }
 
 /**
- * @param {SplatterOptions} opts splat format options
- * @returns {Splatter} a new instance of the splat format
+ * @param opts - splat format options
+ * @returns a new instance of the splat format
  */
 export function splatFormat(opts?: SplatterOptions): Splatter {
   return new Splatter(opts);

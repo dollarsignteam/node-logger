@@ -8,17 +8,17 @@ import { ChangeableInfo } from '@/interfaces';
 const { printf } = format;
 
 /**
- * @param {string} message log message
- * @param {boolean} colorize is enabled color flag
- * @returns {string} modified message
+ * @param message - log message
+ * @param colorize - is enabled color flag
+ * @returns modified message
  */
 export function getMessage(message: string, colorize: boolean): string {
   return colorize ? `${colorWrap[0]}${message}${colorWrap[1]}` : message;
 }
 
 /**
- * @param {?} data data info list
- * @returns {string} data info string
+ * @param data - data info list
+ * @returns data info string
  */
 export function getDataInfo(data: unknown[]): string {
   const info = data?.length === 1 ? data[0] : data;
@@ -26,8 +26,8 @@ export function getDataInfo(data: unknown[]): string {
 }
 
 /**
- * @param {ChangeableInfo} info Logform info message
- * @returns {string} logs message
+ * @param info - Logform info message
+ * @returns logs message
  */
 export function simpleFactory(info: ChangeableInfo): string {
   const { message, level: levelInfo, ms } = info;

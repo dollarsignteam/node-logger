@@ -13,12 +13,14 @@
   },
   "plugins": [
     "simple-import-sort",
-    "typescript-sort-keys"
+    "typescript-sort-keys",
+    "eslint-plugin-tsdoc"
   ],
   "rules": {
     "@typescript-eslint/no-parameter-properties": 1,
     "@typescript-eslint/explicit-function-return-type": 1,
     "@typescript-eslint/explicit-module-boundary-types": 1,
-    "simple-import-sort/imports": 1
+    "simple-import-sort/imports": 1,
+    "tsdoc/syntax": "warn"
   }
 }
