@@ -1,10 +1,12 @@
-# node-logger
+# Logger for Node.js
 
-Logger for Node.js
+Powerful, logging everything for Node.js
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dollarsignteam/node-logger/Node.js%20Package?logo=github)][1]
 [![npm (scoped)](https://img.shields.io/npm/v/@dollarsign/logger?logo=npm)][2]
 [![GitHub license](https://img.shields.io/github/license/dollarsignteam/node-logger)][3]
+
+It is based on the [winston][5] package and inspired by [tslog][6] package.
 
 ## Installation
 
@@ -129,3 +131,5 @@ Licensed under the MIT License - see the [LICENSE][3] file for details.
 [2]: https://www.npmjs.com/package/@dollarsign/logger
 [3]: https://github.com/dollarsignteam/node-logger/blob/main/LICENSE
 [4]: https://github.com/dollarsignteam/node-logger/blob/main/CONTRIBUTING.md
+[5]: https://github.com/winstonjs/winston
+[6]: https://github.com/fullstack-build/tslog
