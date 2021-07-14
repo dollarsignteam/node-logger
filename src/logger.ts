@@ -1,6 +1,6 @@
 import 'source-map-support/register';
 
-import { isDisabled } from '@dollarsign/utils';
+import { isDisabled, isEnabled, isProduction } from '@dollarsign/utils';
 import { basename, sep } from 'path';
 import winston from 'winston';
 
@@ -57,12 +57,27 @@ export class Logger {
    * overwrite default config with environment variable
    */
   private configureWithEnvironment(): void {
-    const { LOGGER_COLORIZE, LOGGER_DISPLAY_DIFFERENT_TIMESTAMP, LOGGER_DISPLAY_FILE_PATH, LOGGER_DISPLAY_FUNCTION_NAME } = process.env;
-    const colorize = this.options.colorize ?? !isDisabled(LOGGER_COLORIZE);
+    const { LOGGER_DISPLAY_DIFFERENT_TIMESTAMP, LOGGER_DISPLAY_FILE_PATH, LOGGER_DISPLAY_FUNCTION_NAME } = process.env;
+    const colorize = this.isEnabledColorize(this.options);
     const displayDifferentTimestamp = this.options.displayDifferentTimestamp ?? !isDisabled(LOGGER_DISPLAY_DIFFERENT_TIMESTAMP);
     const displayFilePath = this.options.displayFilePath ?? !isDisabled(LOGGER_DISPLAY_FILE_PATH);
     const displayFunctionName = this.options.displayFunctionName ?? !isDisabled(LOGGER_DISPLAY_FUNCTION_NAME);
     this.options = { ...this.options, ...{ colorize, displayDifferentTimestamp, displayFilePath, displayFunctionName } };
+  }
+
+  /**
+   * @param options - logger options
+   * @returns true if colorize configured
+   */
+  public isEnabledColorize(options: LoggerOptions): boolean {
+    const { LOGGER_COLORIZE } = process.env;
+    if (options?.colorize) {
+      return options.colorize;
+    }
+    if (isProduction() && !isEnabled(LOGGER_COLORIZE)) {
+      return false;
+    }
+    return !isDisabled(LOGGER_COLORIZE);
   }
 
   /**

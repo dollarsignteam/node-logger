@@ -30,6 +30,7 @@ Demo file: `src/example/demo.ts`
 import { Logger } from '@dollarsign/logger';
 
 // disabled default options with environment variables
+process.env.NODE_ENV = 'production';
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 process.env.LOGGER_DISPLAY_FILE_PATH = 'false';

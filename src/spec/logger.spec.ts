@@ -20,6 +20,37 @@ describe('Logger', () => {
     expect(logger).toBeDefined();
   });
 
+  describe('isEnabledColorize', () => {
+    beforeEach(() => {
+      delete process.env.NODE_ENV;
+      delete process.env.LOGGER_COLORIZE;
+    });
+
+    it('should return colorize value in options', () => {
+      const result = logger.isEnabledColorize({ colorize: true });
+      expect(result).toBeTruthy();
+    });
+
+    it('should return `false` when `NODE_ENV` is production', () => {
+      process.env.NODE_ENV = 'production';
+      const result = logger.isEnabledColorize(null);
+      expect(result).toBeFalsy();
+    });
+
+    it('should return `false` when `LOGGER_COLORIZE` is false', () => {
+      process.env.LOGGER_COLORIZE = 'false';
+      const result = logger.isEnabledColorize(null);
+      expect(result).toBeFalsy();
+    });
+
+    it('should return `true` when `LOGGER_COLORIZE` is true and `NODE_ENV` is production', () => {
+      process.env.NODE_ENV = 'production';
+      process.env.LOGGER_COLORIZE = 'true';
+      const result = logger.isEnabledColorize(null);
+      expect(result).toBeTruthy();
+    });
+  });
+
   describe('getRelativePath', () => {
     it('should return null when input is null', () => {
       const result = Logger.getRelativePath(null);

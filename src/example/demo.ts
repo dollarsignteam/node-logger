@@ -1,6 +1,7 @@
 import { Logger } from '@/index';
 
 // disabled default options with environment variables
+process.env.NODE_ENV = 'production';
 process.env.LOGGER_COLORIZE = 'false';
 process.env.LOGGER_DISPLAY_DIFFERENT_TIMESTAMP = 'false';
 process.env.LOGGER_DISPLAY_FILE_PATH = 'false';
