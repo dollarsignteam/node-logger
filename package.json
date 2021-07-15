@@ -22,6 +22,10 @@
   },
   "bugs": "https://github.com/dollarsignteam/node-logger/issues",
   "scripts": {
+    "format": "prettier --write 'src/**/*.ts'",
+    "lint": "eslint --fix --ext .ts 'src/**/*.ts'",
+    "fix": "tsc --noEmit && yarn format && yarn lint",
+    "prepare": "husky install",
     "prebuild": "rimraf dist/*",
     "build": "tsc && tsc-alias",
     "test": "jest --forceExit --detectOpenHandles",
@@ -29,11 +33,6 @@
     "test:watch": "npm run test -- --coverage --watchAll",
     "demo": "ts-node -r tsconfig-paths/register src/example/demo.ts",
     "demo:watch": "nodemon -r tsconfig-paths/register src/example/demo.ts",
-    "format": "prettier 'src/**/*.ts' --write",
-    "lint": "eslint --ignore-path .gitignore --ext .ts 'src/' --fix",
-    "type-check": "tsc-files --noEmit",
-    "fix": "tsc --noEmit && yarn format && yarn lint",
-    "prepare": "husky install",
     "semantic-release": "semantic-release",
     "docs": "typedoc --theme default src/index.ts"
   },
