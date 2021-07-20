@@ -1,6 +1,5 @@
 import { jsonStringify } from '@dollarsign/utils';
 import { format } from 'logform';
-import { types } from 'util';
 
 import { CALLER, colorWrap, DATA, EmojiLogLevels, INFO } from '@/constants';
 import { ChangeableInfo } from '@/interfaces';
@@ -53,11 +52,7 @@ export function simpleFactory(info: ChangeableInfo): string {
     }
   }
   const logMessage = jsonStringify(message);
-  if (types.isNativeError(message)) {
-    template.push(`${logMessage}`.slice(1, -1));
-  } else {
-    template.push(logMessage);
-  }
+  template.push(logMessage);
   if (info[DATA]?.length) {
     template.push(`- ${getDataInfo(info[DATA])}`);
   }
