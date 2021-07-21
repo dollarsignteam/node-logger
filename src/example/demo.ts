@@ -63,3 +63,6 @@ function Foo(): void {
 const foo = new Foo();
 logger.info('Circular', foo);
 logger.debug(foo.circular);
+
+// fatal logging and exit process with exit code 1
+logger.fatal('Fatal error!');

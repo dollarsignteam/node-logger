@@ -3,6 +3,7 @@ import { AbstractConfigSetColors, AbstractConfigSetLevels } from 'winston/lib/wi
 export enum LogLevels {
   debug = 'debug',
   error = 'error',
+  fatal = 'fatal',
   http = 'http',
   info = 'info',
   silly = 'silly',
@@ -15,6 +16,7 @@ export enum LogLevels {
 export enum EmojiLogLevels {
   debug = '🟪 debug  ',
   error = '🟥 error  ',
+  fatal = '🟥 fatal  ',
   http = '🟫 http   ',
   info = '⬜️ info   ',
   silly = '⬛️ silly  ',
@@ -25,20 +27,22 @@ export enum EmojiLogLevels {
 }
 
 export const customLevels: AbstractConfigSetLevels = {
-  error: 0,
-  warn: 1,
-  info: 2,
-  success: 3,
-  http: 4,
-  verbose: 5,
-  debug: 6,
-  trace: 7,
-  silly: 8,
+  fatal: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  success: 4,
+  http: 5,
+  verbose: 6,
+  debug: 7,
+  trace: 8,
+  silly: 9,
 };
 
 export const customColors: AbstractConfigSetColors = {
   debug: 'bold magenta',
   error: 'bold white redBG',
+  fatal: 'bold white redBG',
   http: 'bold cyan',
   info: 'bold white',
   silly: 'bold dim white',

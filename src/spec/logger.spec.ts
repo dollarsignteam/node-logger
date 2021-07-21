@@ -172,5 +172,15 @@ describe('Logger', () => {
         expect(logger.callLogger).toHaveBeenCalledWith('error', 'failed', error);
       });
     });
+
+    describe('fatal', () => {
+      it('should call `callLogger`', () => {
+        const spyExit = jest.spyOn(process, 'exit').mockReset();
+        const error = new Error('FATAL ERROR');
+        logger.fatal('failed', error);
+        expect(logger.callLogger).toHaveBeenCalledWith('fatal', 'failed', error);
+        expect(spyExit).toHaveBeenCalledWith(1);
+      });
+    });
   });
 });

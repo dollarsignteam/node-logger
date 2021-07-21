@@ -161,6 +161,15 @@ export class Logger {
   }
 
   /**
+   * Fatal logging and exit process with exit code 1
+   * @param args - multiple log attributes that should be logged out
+   */
+  public fatal(...args: unknown[]): never {
+    this.callLogger(LogLevels.fatal, ...args);
+    process.exit(1);
+  }
+
+  /**
    * @param level - log level `string`
    * @param args - multiple log attributes that should be logged out
    * @returns winston logger instance
