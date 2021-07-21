@@ -3,7 +3,7 @@ import winston, { createLogger as createWinstonLogger, Logger, transports } from
 
 import { customColors, customLevels, LogLevels } from '@/constants';
 import { LoggerOptions } from '@/interfaces';
-import { loggerInfoFormat } from '@/utils/logger-Info-format';
+import { loggerInfoFormat } from '@/utils/loggerinfo-format';
 import { simpleFormat } from '@/utils/simple-format';
 import { splatFormat } from '@/utils/splat-format';
 
