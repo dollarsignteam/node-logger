@@ -1,6 +1,6 @@
 import { CALLER, INFO, LEVEL, SPLAT } from '../../constants';
 import { CallerInfo, ChangeableInfo, LoggerOptions } from '../../interfaces';
-import { loggerInfoFactory, loggerInfoFormat } from '../loggerinfo-format';
+import { loggerInfoFactory, loggerInfoFormat } from '../logger-info-format';
 
 describe('loggerInfoFactory', () => {
   it('should return info without `SPLAT`', () => {
